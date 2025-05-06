@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 const { body, validationResult } = require('express-validator');
 const Food = require('../models/Food');
-const fetchuser = require('../middleware/fetchUser');
+const fetchuser = require('../middleware/fetchuser.js');
 
 router.get('/fetchallfood', async (req, res) => {
     try {
