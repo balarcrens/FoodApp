@@ -5,7 +5,7 @@ const { body, validationResult } = require('express-validator');
 const Food = require('../models/Food');
 const fetchuser = require('../middleware/fetchUser');
 
-router.get('/fetchallfood', fetchuser, async (req, res) => {
+router.get('/fetchallfood', async (req, res) => {
     try {
         const food = await Food.find();
         res.json(food);
@@ -36,7 +36,7 @@ router.post('/addfood', fetchuser, [
     }
 });
 
-router.get('/:id', fetchuser, async (req, res) => {
+router.get('/:id', async (req, res) => {
     try {
         const food = await Food.findById(req.params.id);
         if (!food) return res.status(404).json({ error: "Food not found" });
