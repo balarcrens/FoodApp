@@ -88,7 +88,6 @@ app.post('/verify-payment', (req, res) => {
     try {
         const isValidSignature = validateWebhookSignature(body, razorpay_signature, secret);
         if (isValidSignature) {
-            // Update the order with payment details
             const orders = readData();
             const order = orders.find(o => o.order_id === razorpay_order_id);
             if (order) {
@@ -97,10 +96,8 @@ app.post('/verify-payment', (req, res) => {
                 writeData(orders);
             }
             res.status(200).json({ status: 'ok' });
-            // console.log("Payment verification successful");
         } else {
             res.status(400).json({ status: 'verification_failed' });
-            // console.log("Payment verification failed");
         }
     } catch (error) {
         console.error(error);
