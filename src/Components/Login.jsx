@@ -4,10 +4,12 @@ import { Link } from 'react-router-dom'
 
 export default function Login() {
     const [cred, setcred] = useState({ email: "", password: "" });
+    const host = "https://foodapp-backend-o8ha.onrender.com"
+    
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const response = await fetch(`http://localhost:7000/api/auth/login`, {
+        const response = await fetch(`${host || 'http://localhost:1234'}/api/auth/login`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

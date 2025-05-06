@@ -6,13 +6,14 @@ export default function Foods() {
     const [selectedFood, setSelectedFood] = useState(undefined);
     const [open, setOpen] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState("All");
+    const host = "https://foodapp-backend-o8ha.onrender.com"
 
     const categories = ['All', 'Pizza', 'Burger', 'Drink', 'Dessert', 'Sides'];
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await fetch("http://localhost:7000/api/food/fetchallfood", {
+                const res = await fetch(`${host || 'http://localhost:1234'}/api/food/fetchallfood`, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",

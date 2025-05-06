@@ -3,12 +3,13 @@
 import React, { useEffect, useState } from 'react';
 
 export default function Profile() {
-    const [user, setUser] = useState(null); // null instead of []
+    const [user, setUser] = useState(null);
+    const host = "https://foodapp-backend-o8ha.onrender.com"
 
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                const res = await fetch('http://localhost:7000/api/auth/getuser', {
+                const res = await fetch(`${host || 'http://localhost:1234'}/api/auth/getuser`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",

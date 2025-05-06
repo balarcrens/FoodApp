@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react'
 import { QRCodeSVG } from 'qrcode.react';
 
 export default function FoodDetail(props) {
+    const host = "https://webstore-payment.onrender.com/" 
     useEffect(() => {
         if (!props.open) {
             // Reset receipt when modal is closed
@@ -56,7 +57,7 @@ export default function FoodDetail(props) {
 
     const handlePayment = async () => {
         try {
-            const res = await fetch("http://localhost:5000/create-order", {
+            const res = await fetch(`${host || "http://localhost:5000/"}/create-order`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -82,7 +83,7 @@ export default function FoodDetail(props) {
                 order_id: order.id,
                 handler: async function (response) {
                     // Verify payment
-                    const verifyRes = await fetch("http://localhost:5000/verify-payment", {
+                    const verifyRes = await fetch(`${host || "http://localhost:5000/"}/verify-payment`, {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",

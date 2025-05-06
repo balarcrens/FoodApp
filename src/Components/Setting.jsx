@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 
 export default function Setting() {
     const [formData, setFormData] = useState(null);
+    const host = "https://foodapp-backend-o8ha.onrender.com"
 
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                const res = await fetch('http://localhost:7000/api/auth/getuser', {
+                const res = await fetch(`${host || 'http://localhost:1234'}/api/auth/getuser`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",

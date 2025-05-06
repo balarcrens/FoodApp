@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 
 export default function Signup() {
     const [cred, setCred] = useState({ name: "", email: "", password: "", cpassword: "", phone: "" });
+    const host = "https://foodapp-backend-o8ha.onrender.com"
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -13,7 +14,7 @@ export default function Signup() {
 
         try {
 
-            const response = await fetch("http://localhost:7000/api/auth/createuser", {
+            const response = await fetch(`${host || 'http://localhost:1234'}/api/auth/createuser`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
