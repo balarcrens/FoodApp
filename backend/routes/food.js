@@ -32,7 +32,7 @@ router.post('/addfood', fetchuser, [
         res.json(savedFood);
     } catch (error) {
         console.error(error);
-        res.status(500).send("Internal Server Error");
+        res.status(500).send({ error: "Internal Server Error" });
     }
 });
 
@@ -43,7 +43,7 @@ router.get('/:id', fetchuser, async (req, res) => {
         res.json({ food });
     } catch (error) {
         console.error(error);
-        res.status(500).send("Internal Server Error");
+        res.status(500).send({ error: "Internal Server Error" });
     }
 });
 
@@ -54,7 +54,7 @@ router.put('/update/:id', fetchuser, async (req, res) => {
         res.json(updated);
     } catch (error) {
         console.error(error);
-        res.status(500).send("Internal Server Error");
+        res.status(500).send({ error: "Internal Server Error" });
     }
 })
 
@@ -65,7 +65,7 @@ router.delete('/delete/:id', fetchuser, async (req, res) => {
         res.json({ success: "Food deleted", deleted });
     } catch (error) {
         console.error(error);
-        res.status(500).send("Internal Server Error");
+        res.status(500).send({ error: "Internal Server Error" });
     }
 })
 
