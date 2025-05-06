@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const URI = 'mongodb://localhost:27017/food?directConnection=true';
+const URI = 'mongodb+srv://balarcrens188:crens446@cluster0.abcde.mongodb.net/food?retryWrites=true&w=majority';
 
 const mongodb = async () => {
     try {
