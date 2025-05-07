@@ -59,7 +59,7 @@ export default function Foods() {
                     <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
                         {filteredFoods.map((food) => (
                             <div key={food._id} onClick={() => handleFoodClick(food)} className="group cursor-pointer">
-                                <img src={food.img} alt={food.name} loading="eager" className="aspect-square w-full rounded-lg bg-gray-200 object-cover group-hover:opacity-75" />
+                                <img src={food.img} alt={food.name + " " + food.description} loading="eager" className="aspect-square w-full rounded-lg bg-gray-200 object-cover group-hover:opacity-75" />
                                 <h3 className="mt-4 text-sm text-gray-700">{food.name}</h3>
                                 <p className="mt-1 text-lg font-medium text-gray-900">₹ {food.price}</p>
                             </div>

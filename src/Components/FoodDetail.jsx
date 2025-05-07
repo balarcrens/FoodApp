@@ -137,7 +137,7 @@ export default function FoodDetail(props) {
                         </button>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6">
-                            <img src={props.food.img} loading="eager" alt={props.food.name} className="w-full h-full rounded-lg object-cover" />
+                            <img src={props.food.img} loading="eager" alt={props.food.name + " " + props.food.description} className="w-full h-full rounded-lg object-cover" />
                             <div className='flex flex-col'>
                                 <h2 className="text-2xl font-bold">{props.food.name}</h2>
                                 <p className="text-gray-600 my-2">{props.food.description}</p>
@@ -208,7 +208,7 @@ export default function FoodDetail(props) {
                             </div>
                             <div className="space-y-2 text-sm text-gray-700">
                                 <div className="flex justify-center font-semibold flex-wrap">
-                                    <img src={props.food.img} alt='' height="100px" width="100px" />
+                                    <img src={props.food.img} alt={props.food.name + " " + props.food.description} height="100px" width="100px" />
                                     <span className="text-gray-600 text-lg pl-1 m-auto">{receiptData.foodName}</span>
                                 </div>
                                 <div className="flex justify-between">
