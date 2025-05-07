@@ -57,7 +57,7 @@ export default function FoodDetail(props) {
 
     const handlePayment = async () => {
         try {
-            const res = await fetch(`${host || "http://localhost:5000/"}/create-order`, {
+            const res = await fetch(`${host || "http://localhost:5000/"}create-order`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -83,7 +83,7 @@ export default function FoodDetail(props) {
                 order_id: order.id,
                 handler: async function (response) {
                     // Verify payment
-                    const verifyRes = await fetch(`${host || "http://localhost:5000/"}/verify-payment`, {
+                    const verifyRes = await fetch(`${host || "http://localhost:5000/"}verify-payment`, {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
