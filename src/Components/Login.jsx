@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 export default function Login() {
     const [cred, setcred] = useState({ email: "", password: "" });
     const host = "https://foodapp-backend-o8ha.onrender.com"
-    
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -66,6 +66,9 @@ export default function Login() {
 
     return (
         <>
+            <div aria-hidden="true" className="absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]">
+                <div style={{ clipPath: 'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)', }} className="relative left-1/2 -z-10 aspect-1155/678 w-[36.125rem] max-w-none -translate-x-1/2 rotate-[30deg] bg-linear-to-tr from-[#ff80b5] to-[#9089fc] opacity-50 sm:left-[calc(50%-40rem)] sm:w-[72.1875rem]" />
+            </div>
             <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
                 <div className="sm:mx-auto sm:w-full sm:max-w-sm">
                     <h2 className="mt-20 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
@@ -73,7 +76,7 @@ export default function Login() {
                     </h2>
                 </div>
 
-                <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+                <div className="my-6 sm:mx-auto sm:w-full sm:max-w-sm">
                     <form action="/" className="space-y-6" onSubmit={handleSubmit}>
                         <div>
                             <label htmlFor="email" className="block text-sm/6 font-medium text-gray-900">Email address</label>
