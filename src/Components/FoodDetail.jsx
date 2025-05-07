@@ -5,7 +5,19 @@ import { useEffect, useState } from 'react'
 import { QRCodeSVG } from 'qrcode.react';
 
 export default function FoodDetail(props) {
-    const host = "https://webstore-payment.onrender.com" 
+    const [receiptData, setReceiptData] = useState(null);
+    const [size, setSize] = useState('sm');
+    const [quantity, setQuantity] = useState(1);
+    const [selectedIngredients, setSelectedIngredients] = useState([]);
+    const host = "https://webstore-payment.onrender.com"
+    
+    useEffect(() => {
+        const script = document.createElement("script");
+        script.src = "https://checkout.razorpay.com/v1/checkout.js";
+        script.async = true;
+        document.body.appendChild(script);
+    }, []);
+    
     useEffect(() => {
         if (!props.open) {
             // Reset receipt when modal is closed
@@ -16,17 +28,6 @@ export default function FoodDetail(props) {
         }
     }, [props.open]);
 
-    useEffect(() => {
-        const script = document.createElement("script");
-        script.src = "https://checkout.razorpay.com/v1/checkout.js";
-        script.async = true;
-        document.body.appendChild(script);
-    }, []);
-
-    const [receiptData, setReceiptData] = useState(null);
-    const [size, setSize] = useState('sm');
-    const [quantity, setQuantity] = useState(1);
-    const [selectedIngredients, setSelectedIngredients] = useState([]);
     if (!props.food) return null;
 
     const ingredients = [
@@ -69,6 +70,9 @@ export default function FoodDetail(props) {
                     notes: {
                         foodName: props.food.name,
                     },
+                    name: "",
+                    email: "customer@example.com",
+                    foodname: props.food.name
                 }),
             });
 
@@ -103,6 +107,8 @@ export default function FoodDetail(props) {
                         paymentId: response.razorpay_payment_id,
                         orderId: response.razorpay_order_id,
                         time: new Date().toLocaleString(),
+                        ingredients: selectedIngredients.map(i => i.name).join(', '),
+                        size: size.toUpperCase()
                     });
                     if (verifyData.status === "ok") {
                     } else {
@@ -174,7 +180,7 @@ export default function FoodDetail(props) {
                                     </>
                                 )}
 
-                                <div className="my-3 flex items-center space-x-4">
+                                <div className="my-3 flex items-center space-x-4 flex-wrap">
                                     <p className="text-gray-700 font-semibold">Quantity:</p>
                                     <div className="flex items-center border border-gray-300 rounded-md overflow-hidden">
                                         <button
@@ -223,6 +229,18 @@ export default function FoodDetail(props) {
                                     <span className="font-medium">Quantity:</span>
                                     <span className="text-gray-600">{receiptData.quantity}</span>
                                 </div>
+                                {receiptData.size ?
+                                    <div className="flex justify-between">
+                                        <span className="font-medium">Size:</span>
+                                        <span className="text-gray-600">{receiptData.size}</span>
+                                    </div> : <></>
+                                }
+                                {receiptData.ingredients ?
+                                    <div className="flex justify-between">
+                                        <span className="font-medium">Ingredient:</span>
+                                        <span className="text-gray-600">{receiptData.ingredients}</span>
+                                    </div> : <></>
+                                }
                                 <div className="flex justify-between">
                                     <span className="font-medium">Total Paid:</span>
                                     <span className="text-indigo-600 font-semibold">₹{receiptData.totalPrice}</span>
