@@ -3,10 +3,8 @@ const URI = 'mongodb+srv://balarcrens188:crens446@cluster0.xzu7dp3.mongodb.net/f
 
 const mongodb = async () => {
     try {
-        await mongoose.connect(URI, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true
-        });
+        await mongoose.connect(URI);
+        console.log("mongoDb connected Successfully");
     } catch (err) {
         console.log(err);
     }

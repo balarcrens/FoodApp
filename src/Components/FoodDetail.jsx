@@ -5,11 +5,11 @@ import { useEffect, useState } from 'react'
 import { QRCodeSVG } from 'qrcode.react';
 
 export default function FoodDetail(props) {
+    const host = "https://webstore-payment.onrender.com"
     const [receiptData, setReceiptData] = useState(null);
     const [size, setSize] = useState('sm');
     const [quantity, setQuantity] = useState(1);
     const [selectedIngredients, setSelectedIngredients] = useState([]);
-    const host = "https://webstore-payment.onrender.com"
     
     useEffect(() => {
         const script = document.createElement("script");
@@ -17,7 +17,6 @@ export default function FoodDetail(props) {
         script.async = true;
         document.body.appendChild(script);
     }, []);
-    
     useEffect(() => {
         if (!props.open) {
             // Reset receipt when modal is closed
@@ -29,6 +28,7 @@ export default function FoodDetail(props) {
     }, [props.open]);
 
     if (!props.food) return null;
+
 
     const ingredients = [
         { name: "Cheese", price: 30 },

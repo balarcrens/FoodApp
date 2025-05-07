@@ -96,4 +96,35 @@ router.get('/getuser', fetchuser, async (req, res) => {
     }
 });
 
+router.put('/updateuser', fetchuser, [
+    body('name').notEmpty(),
+    body('email').isEmail(),
+    body('password').isLength({ min: 5 }),
+    body('phone').isLength(10)
+], async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
+
+    const { name, phone, password } = req.body;
+
+    try {
+        const updatedData = {};
+        if (name) updatedData.name = name;
+        if (password) updatedData.email = password;
+        if (phone) updatedData.phone = phone;
+
+        const user = await User.findByIdAndUpdate(
+            req.user.id,
+            { $set: updatedData },
+            { new: true }
+        ).select("-password");
+
+        res.json({ user });
+
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send({ error: "Server Error" });
+    }
+});
+
 module.exports = router;
