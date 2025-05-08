@@ -4,6 +4,7 @@ import { Dialog, DialogBackdrop, DialogPanel } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import { useEffect, useState } from 'react'
 import { QRCodeSVG } from 'qrcode.react';
+import AOS from "aos";
 
 export default function FoodDetail(props) {
     const host = "https://webstore-payment.onrender.com"
@@ -34,6 +35,8 @@ export default function FoodDetail(props) {
     }
 
     useEffect(() => {
+        AOS.init();
+
         if (localStorage.getItem('auth-token')) {
             getUser();
         }
@@ -191,7 +194,7 @@ export default function FoodDetail(props) {
                         <DialogBackdrop className="fixed inset-0 bg-gray-500/75" />
                         <div className="fixed inset-0 z-10 overflow-y-auto">
                             <div className="flex min-h-full items-center justify-center p-4">
-                                <DialogPanel className="relative bg-white rounded-lg shadow-xl w-full max-w-3xl">
+                                <DialogPanel className="relative bg-white rounded-lg shadow-xl w-full max-w-3xl" >
                                     <button onClick={() => props.setOpen(false)} className="absolute top-2 right-2 text-gray-400 hover:text-gray-500">
                                         <XMarkIcon className="w-6 h-6" />
                                     </button>
@@ -258,7 +261,7 @@ export default function FoodDetail(props) {
                                     </div>
                                 </DialogPanel>
                                 {props.open && receiptData && (
-                                    <div className="fixed bottom-10 right-5 max-w-sm bg-white rounded-xl shadow-xl border border-gray-200 p-6 animate-fade-in-up">
+                                    <div className="fixed bottom-10 right-5 max-w-sm bg-white rounded-xl shadow-xl border border-gray-200 p-6 animate-fade-in-up" data-aos="fade-left" data-aos-duration="1500">
                                         <button onClick={() => setReceiptData(null)} className="absolute top-2 right-2 text-gray-400 hover:text-gray-600">
                                             <XMarkIcon className="w-5 h-5" />
                                         </button>

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import FoodDetail from "./FoodDetail";
 import AOS from "aos";
-// import "aos/dist/aos.css";
 
 export default function Foods() {
     const [foods, setFoods] = useState([]);
