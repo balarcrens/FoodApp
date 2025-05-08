@@ -36,7 +36,7 @@ export default function Login() {
 
         script.onload = () => {
             window.google.accounts.id.initialize({
-                client_id: "226449432488-s5r459b5ovor76lfupd8npfo07t91lgi.apps.googleusercontent.com", // Replace this
+                client_id: "226449432488-s5r459b5ovor76lfupd8npfo07t91lgi.apps.googleusercontent.com",
                 callback: handleCredentialResponse
             });
 

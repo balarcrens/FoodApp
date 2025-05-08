@@ -18,7 +18,7 @@ export default function Foods() {
         AOS.init();
 
         const fetchData = async () => {
-            setisLoading(true); // Start loader before fetch
+            setisLoading(true);
             try {
                 const res = await fetch(`${host || 'http://localhost:1234'}/api/food/fetchallfood`, {
                     method: "GET",

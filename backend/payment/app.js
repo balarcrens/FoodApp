@@ -197,4 +197,4 @@ app.post('/send-receipt-email', async (req, res) => {
     }
 });
 
-app.listen(5000, () => console.log('Payment Server running on http://localhost:5000'));
+app.listen(5000);

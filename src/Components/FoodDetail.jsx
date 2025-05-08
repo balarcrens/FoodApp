@@ -17,7 +17,7 @@ export default function FoodDetail(props) {
 
     const getUser = async () => {
         try {
-            const res = await fetch(`http://localhost:1234/api/auth/getuser`, {
+            const res = await fetch(`https://foodapp-backend-o8ha.onrender.com/api/auth/getuser`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -119,7 +119,7 @@ export default function FoodDetail(props) {
                         }),
                     });
 
-                    await fetch(`http://localhost:5000/send-receipt-email`, {
+                    await fetch(`${host}/send-receipt-email`, {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",

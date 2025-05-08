@@ -36,7 +36,6 @@ export default function Setting() {
     const handleSubmit = (e) => {
         e.preventDefault();
         alert("Settings saved successfully!");
-        // Optionally, send updated data to backend here
     };
 
     if (!formData || !formData.user) {

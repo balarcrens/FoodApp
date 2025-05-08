@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import UserContext from "./userContext";
 
 const UserState = (props) => {
-    const host = "http://localhost:1234";
+    const host = "https://foodapp-backend-o8ha.onrender.com";
     const [user, setUser] = useState(null);
 
     const getUser = async () => {
