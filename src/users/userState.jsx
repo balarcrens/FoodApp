@@ -1,9 +1,9 @@
 /* eslint-disable no-unused-vars */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import UserContext from "./userContext";
 
 const UserState = (props) => {
-    const host = "https://foodapp-backend-o8ha.onrender.com" || "http://localhost:1234";
+    const host = "http://localhost:1234";
     const [user, setUser] = useState(null);
 
     const getUser = async () => {
@@ -15,8 +15,12 @@ const UserState = (props) => {
             },
         });
         const json = await response.json();
-        setUser(json.user); // assuming backend sends { user: { ... } }
+        setUser(json.user);
+
     };
+    useEffect(() => {
+        getUser();
+    });
 
     const editDetail = async (name, phone, password) => {
         const response = await fetch(`${host}/api/auth/updateuser`, {
