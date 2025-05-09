@@ -39,11 +39,11 @@ router.post('/createuser', [
 
         const data = {
             user: {
-                id: user.id,
+                id: user._id,
             }
         };
 
-        const token = jwt.sign(data, JWT_SECRET);
+        const token = jwt.sign(data, JWT_SECRET, { expiresIn: '1d' });
         res.json({ token });
     } catch (error) {
         console.error(error.message);
@@ -70,7 +70,7 @@ router.post('/login', [
 
         const data = {
             user: {
-                id: user.id,
+                id: user._id,
                 role: user.role
             }
         };
@@ -80,17 +80,6 @@ router.post('/login', [
 
     } catch (err) {
         console.error(err.message);
-        res.status(500).send({ error: "Server Error" });
-    }
-});
-
-router.get('/getuser', fetchuser, async (req, res) => {
-    try {
-        const userId = req.user.id;
-        const user = await User.findById(userId).select("-password");
-        res.send({ user });
-    } catch (err) {
-        console.error("err" + err);
         res.status(500).send({ error: "Server Error" });
     }
 });
@@ -109,7 +98,6 @@ router.put('/updateuser', fetchuser, [
     try {
         const updatedData = {};
         if (name) updatedData.name = name;
-        if (password) updatedData.email = password;
         if (phone) updatedData.phone = phone;
 
         if (password) {
@@ -125,9 +113,20 @@ router.put('/updateuser', fetchuser, [
         ).select("-password");
 
         res.json({ user });
-
+        
     } catch (error) {
         console.error(error.message);
+        res.status(500).send({ error: "Server Error" });
+    }
+});
+
+router.get('/getuser', fetchuser, async (req, res) => {
+    try {
+        const userId = req.user.id;
+        const user = await User.findById(userId).select("-password");
+        res.send({ user });
+    } catch (err) {
+        console.error("err" + err);
         res.status(500).send({ error: "Server Error" });
     }
 });

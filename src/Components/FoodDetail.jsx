@@ -18,6 +18,10 @@ export default function FoodDetail(props) {
 
     useEffect(() => {
         AOS.init();
+        
+        if (!localStorage.getItem("auth-token")) {
+            window.location.href = '/signup'
+        }
 
         const getUser = async () => {
             try {

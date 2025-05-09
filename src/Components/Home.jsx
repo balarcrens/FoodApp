@@ -11,7 +11,7 @@ export default function Home() {
                 <div className="w-full mt-15">
                     <div className="bg-[url('/images/hero-bg.jpg')] bg-cover bg-right rounded-l-full rounded-r-full text-white h-[60vh] flex items-center justify-center overflow-hidden">
                         <div className="text-center bg-black/50 p-6 rounded-xl w-full">
-                            <h1 className="text-4xl font-bold mb-4">Welcome to Foodie's Adda</h1>
+                            <h1 className="text-4xl font-bold mb-4">Welcome to Foodie's App</h1>
                             <p className="mb-6 text-lg">Delicious food delivered fast at your door</p>
                             <a href="#food" className="bg-indigo-600 hover:bg-indigo-700 px-6 py-3 rounded-md text-white text-lg">
                                 Order Now

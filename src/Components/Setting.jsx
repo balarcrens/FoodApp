@@ -9,6 +9,10 @@ export default function Setting(props) {
     const { user, getUser, editDetail } = context
 
     useEffect(() => {
+        if (!localStorage.getItem("auth-token")) {
+            window.location.href = '/signup'
+        }
+
         const fetchData = async () => {
             setIsLoading(true);
             await getUser();
@@ -42,7 +46,8 @@ export default function Setting(props) {
 
         alert("Settings saved successfully!");
 
-        console.log(user);
+        window.location.href = '/login';
+        localStorage.removeItem("auth-token");
     };
 
     return (

@@ -10,6 +10,9 @@ const fetchuser = (req, res, next) => {
         req.user = data.user; // make sure this includes id AND role
         next();
     } catch (error) {
+        if (error.name === 'TokenExpiredError') {
+            return res.status(401).send({ error: 'Token has expired' });
+        }
         res.status(401).send({ error: "Invalid token" });
     }
 };

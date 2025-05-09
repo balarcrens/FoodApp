@@ -9,6 +9,10 @@ export default function Profile() {
     const { user } = context
 
     useEffect(() => {
+        if (!localStorage.getItem("auth-token")) {
+            window.location.href = '/signup'
+        }
+        
         if (user) {
             setData(user);
         }
