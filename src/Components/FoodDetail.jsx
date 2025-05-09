@@ -13,35 +13,35 @@ export default function FoodDetail(props) {
     const [quantity, setQuantity] = useState(1);
     const [isloading, setisLoading] = useState(true);
     const [selectedIngredients, setSelectedIngredients] = useState([]);
-
     const [user, setUser] = useState(null);
 
-    const getUser = async () => {
-        try {
-            const res = await fetch(`https://foodapp-backend-o8ha.onrender.com/api/auth/getuser`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'auth-token': localStorage.getItem('auth-token')
-                }
-            });
-            const data = await res.json();
-            setUser(data);
-        } catch (err) {
-            console.log(err);
-        } finally {
-            setisLoading(false);
-        }
-    }
 
     useEffect(() => {
         AOS.init();
+
+        const getUser = async () => {
+            try {
+                const res = await fetch(`https://foodapp-backend-o8ha.onrender.com/api/auth/getuser`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'auth-token': localStorage.getItem('auth-token')
+                    }
+                });
+                const data = await res.json();
+                setUser(data);
+            } catch (err) {
+                console.log(err);
+            } finally {
+                setisLoading(false);
+            }
+        }
 
         if (localStorage.getItem('auth-token')) {
             getUser();
         }
     }, []);
-    
+
     useEffect(() => {
         const script = document.createElement("script");
         script.src = "https://checkout.razorpay.com/v1/checkout.js";
@@ -194,7 +194,7 @@ export default function FoodDetail(props) {
                         <DialogBackdrop className="fixed inset-0 bg-gray-500/75" />
                         <div className="fixed inset-0 z-10 overflow-y-auto">
                             <div className="flex min-h-full items-center justify-center p-4">
-                                <DialogPanel className="relative bg-white rounded-lg shadow-xl w-full max-w-3xl" >
+                                <DialogPanel className="relative bg-white rounded-lg shadow-xl w-full max-w-3xl">
                                     <button onClick={() => props.setOpen(false)} className="absolute top-2 right-2 text-gray-400 hover:text-gray-500">
                                         <XMarkIcon className="w-6 h-6" />
                                     </button>

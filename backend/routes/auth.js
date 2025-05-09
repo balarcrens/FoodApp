@@ -22,7 +22,6 @@ router.post('/createuser', [
     try {
         const { name, email, password, phone } = req.body;
 
-        // ✅ Correct usage of findOne
         let user = await User.findOne({ email });
         if (user) return res.status(400).json({ error: "User already exists" });
 
