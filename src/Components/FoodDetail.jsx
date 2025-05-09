@@ -110,7 +110,7 @@ export default function FoodDetail(props) {
                 key: "rzp_test_YDl1mSfAIgmAz6", // Replace with your Razorpay key
                 amount: totalPrice,
                 currency: order.currency,
-                name: "Food Adda",
+                name: "Food App",
                 description: props.food.name,
                 order_id: order.id,
                 handler: async function (response) {

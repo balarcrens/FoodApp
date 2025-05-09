@@ -36,12 +36,10 @@ const writeData = (data) => {
     fs.writeFileSync('orders.json', JSON.stringify(data, null, 2));
 };
 
-// Initialize orders.json if it doesn't exist
 if (!fs.existsSync('orders.json')) {
     writeData([]);
 }
 
-// Route to handle order creation
 app.post('/create-order', async (req, res) => {
     try {
         const { amount, currency, receipt, notes } = req.body;
@@ -55,7 +53,6 @@ app.post('/create-order', async (req, res) => {
 
         const order = await razorpay.orders.create(options);
 
-        // Read current orders, add new order, and write back to the file
         const orders = readData();
         orders.push({
             order_id: order.id,
@@ -66,14 +63,14 @@ app.post('/create-order', async (req, res) => {
         });
         writeData(orders);
 
-        res.json(order); // Send order details to frontend, including order ID
+        res.json(order);
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: "Error creating order" });
     }
 });
 
-// Route to handle payment verification
+
 app.post('/verify-payment', (req, res) => {
     const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body;
 
@@ -105,7 +102,7 @@ app.post('/send-receipt-email', async (req, res) => {
 
     try {
         const transporter = nodemailer.createTransport({
-            service: 'gmail', // or use SendGrid/Mailgun/etc.
+            service: 'gmail',
             auth: {
                 user: 'balarcrens@gmail.com',
                 pass: 'kpxh dhll ebqx ijjg',
