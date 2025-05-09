@@ -74,7 +74,7 @@ export default function Signup(props) {
                             </div>
                             <div className="mt-2">
                                 <input id="password" name="password" required autoComplete="current-password" className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" minLength={5} onChange={onChange} value={cred.password} type={`${props.inputType}`} />
-                                <i class={`float-end relative fa-solid ${props.eyeicon} top-[-26px] right-[15px]`} onClick={props.change}></i>
+                                <i className={`float-end relative fa-solid ${props.eyeicon} top-[-26px] right-[15px]`} onClick={props.change}></i>
                             </div>
                         </div>
                         <div>

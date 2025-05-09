@@ -78,7 +78,7 @@ export default function Setting(props) {
                             <div>
                                 <label className="block text-sm font-medium text-gray-700">New Password</label>
                                 <input name="password" onChange={handleChange} autoComplete='additional-name webauthn' className="mt-1 block w-full border border-gray-300 rounded-md p-2" type={`${props.inputType}`} required />
-                                <i class={`float-end relative fa-solid ${props.eyeicon} top-[-28px] right-[20px]`} onClick={props.change}></i>
+                                <i className={`float-end relative fa-solid ${props.eyeicon} top-[-28px] right-[20px]`} onClick={props.change}></i>
                             </div>
                             <div>
                                 <label className="block text-sm font-medium text-gray-700">Confirm Password</label>
