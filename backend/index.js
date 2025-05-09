@@ -12,6 +12,8 @@ app.use('/api/auth', require('./routes/auth'));
 
 app.use('/api/food', require('./routes/food'));
 
+app.use('/api', require('./routes/contact'));
+
 app.get('/', (req, res) => {
     res.send('API is running 🚀');
 });

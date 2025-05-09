@@ -7,6 +7,7 @@ const UserState = (props) => {
     const [user, setUser] = useState(null);
 
     const getUser = async () => {
+        if (!localStorage.getItem("auth-token")) return;
         try {
             const response = await fetch(`${host}/api/auth/getuser`, {
                 method: "GET",
@@ -38,7 +39,7 @@ const UserState = (props) => {
 
         console.log({ name, phone, password });
         const json = await response.json();
-        setUser(json.user); // update user state with latest info
+        setUser(json.user);
     };
 
     return (

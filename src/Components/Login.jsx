@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
-export default function Login() {
+export default function Login(props) {
     const [cred, setcred] = useState({ email: "", password: "" });
     const host = "https://foodapp-backend-o8ha.onrender.com"
 
@@ -93,7 +93,8 @@ export default function Login() {
                                 </div>
                             </div>
                             <div className="mt-2">
-                                <input id="password" name="password" type="password" required autoComplete="current-password" className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" onChange={onChange} value={cred.password} minLength={5} />
+                                <input id="password" name="password" required autoComplete="current-password" className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" onChange={onChange} value={cred.password} minLength={5} type={`${props.inputType}`}  />
+                                <i class={`float-end relative fa-solid ${props.eyeicon} top-[-26px] right-[15px]`} onClick={props.change}></i>
                             </div>
                         </div>
 

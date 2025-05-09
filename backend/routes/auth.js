@@ -112,6 +112,12 @@ router.put('/updateuser', fetchuser, [
         if (password) updatedData.email = password;
         if (phone) updatedData.phone = phone;
 
+        if (password) {
+            const salt = await bcrypt.genSalt(10);
+            const hash = await bcrypt.hash(password, salt);
+            updatedData.password = hash;
+        }
+
         const user = await User.findByIdAndUpdate(
             req.user.id,
             { $set: updatedData },

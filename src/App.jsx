@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React from "react";
+import React, { useState } from "react";
 import {
 	Routes,
 	Route
@@ -17,19 +17,31 @@ import Setting from "./Components/Setting";
 import UserState from './Context/users/userState'
 
 function App() {
+	const [eyeicon, seteyeicon] = useState("fa-eye-slash");
+	const [inputType, setInputType] = useState('password');
+	const change = () => {
+		if (eyeicon === "fa-eye-slash") {
+			seteyeicon("fa-eye");
+			setInputType("text");
+		}
+		if (eyeicon === "fa-eye") {
+			seteyeicon("fa-eye-slash");
+			setInputType("password");
+		}
+	}
 	return (
 		<>
 			<UserState>
 				<Header />
 				<Routes>
 					<Route exact path='/' element={<Home />}></Route>
-					<Route exact path='/login' element={<Login />}></Route>
-					<Route exact path='/signup' element={<Signup />}></Route>
+					<Route exact path='/login' element={<Login inputType={inputType} eyeicon={eyeicon} change={change}/>}></Route>
+					<Route exact path='/signup' element={<Signup inputType={inputType} eyeicon={eyeicon} change={change}/>}></Route>
 					<Route exact path='/foods' element={<Foods />}></Route>
 					<Route exact path='/aboutus' element={<About />}></Route>
 					<Route exact path='/contactus' element={<ContactUs />}></Route>
 					<Route exact path='/profile' element={<Profile />}></Route>
-					<Route exact path='/setting' element={<Setting />}></Route>
+					<Route exact path='/setting' element={<Setting inputType={inputType} eyeicon={eyeicon} change={change}/>}></Route>
 				</Routes>
 				<Footer />
 			</UserState>
