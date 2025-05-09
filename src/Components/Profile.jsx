@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import React, { useContext, useEffect, useState } from 'react';
-import UserContext from '../users/userContext';
+import UserContext from '../Context/users/userContext';
 
 export default function Profile() {
     const [data, setData] = useState(null);

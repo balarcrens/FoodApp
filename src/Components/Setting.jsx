@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import React, { useContext, useEffect, useState } from 'react';
-import userContext from '../users/userContext'
+import userContext from '../Context/users/userContext'
 export default function Setting() {
     const [formData, setFormData] = useState(null);
     const context = useContext(userContext);
