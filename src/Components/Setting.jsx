@@ -2,15 +2,11 @@
 /* eslint-disable no-unused-vars */
 import React, { useContext, useEffect, useState } from 'react';
 import userContext from '../Context/users/userContext'
-import { EyeIcon, EyeOffIcon } from '@heroicons/react/solid'; // Optional: use Heroicons if you have them installed
 export default function Setting(props) {
     const [formData, setFormData] = useState(null);
     const context = useContext(userContext);
     const [isLoading, setIsLoading] = useState(true);
     const { user, getUser, editDetail } = context
-
-    // Inside the component:
-    const [showPassword, setShowPassword] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {

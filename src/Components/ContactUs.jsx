@@ -30,7 +30,7 @@ export default function ContactUs() {
 
         try {
             const token = localStorage.getItem("auth-token");
-            const res = await fetch("http://localhost:1234/api/contactus", {
+            const res = await fetch("https://foodapp-backend-o8ha.onrender.com/api/contactus", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

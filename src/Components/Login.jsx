@@ -9,7 +9,7 @@ export default function Login(props) {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const response = await fetch(`${host || 'http://localhost:1234'}/api/auth/login`, {
+        const response = await fetch(`${host}/api/auth/login`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
