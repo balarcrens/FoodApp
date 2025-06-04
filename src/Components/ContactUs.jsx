@@ -138,7 +138,7 @@ export default function ContactUs() {
                         <div className="sm:col-span-2">
                             <label htmlFor="message" className="block text-sm/6 font-semibold "> Message </label>
                             <div className="mt-2.5">
-                                <textarea id="message" onChange={handleChange} value={formData.message.trim()} name="message" rows={4} className="block w-full rounded-md px-3.5 py-2 text-base  outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600" />
+                                <textarea id="message" onChange={handleChange} value={formData.message} name="message" rows={4} className="block w-full rounded-md px-3.5 py-2 text-base  outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600" />
                             </div>
                         </div>
                         <Field className="flex gap-x-4 sm:col-span-2">
