@@ -42,7 +42,7 @@ export default function ContactUs() {
                 })
 
                 const data = await res.json();
-                if (data) {
+                if (!data) {
                     throw new Error("Submittion failed");
                 }
 
