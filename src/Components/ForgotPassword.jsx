@@ -12,7 +12,7 @@ export default function ForgotPassword() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await fetch('https://foodapp-backend-o8ha.onrender.com/api/auth/forgot-password', {
+            const res = await fetch('http://localhost:1234/api/auth/forgot-password', {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -21,6 +21,8 @@ export default function ForgotPassword() {
             });
 
             const data = await res.json();
+
+            console.log(data);
 
             setMessage(data.message || data.error);
             setEmail('');
@@ -45,7 +47,7 @@ export default function ForgotPassword() {
                     <div>
                         <label htmlFor="email" className="block font-medium "> Email address </label>
                         <div className="mt-2">
-                            <input id="email" name="email" type="email" required autoComplete="email" className="block w-full rounded-md px-3 py-1.5 text-base  outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600" value={email} onChange={e => setEmail(e.target.value)} placeholder="you@example.com" />
+                            <input id="email" name="email" type="email" required autoComplete="" className="block w-full rounded-md px-3 py-1.5 text-base  outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600" value={email} onChange={e => setEmail(e.target.value)} placeholder="you@example.com" />
                         </div>
                     </div>
 

@@ -17,7 +17,7 @@ export default function ResetPassword() {
         }
 
         try {
-            const res = await fetch(`https://foodapp-backend-o8ha.onrender.com/api/auth/reset-password/${id}`, {
+            const res = await fetch(`http://localhost:1234/api/auth/reset-password/${id}`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
