@@ -9,6 +9,7 @@ const requireAdmin = require('../middleware/requireAdmin');
 const Order = require('../models/Order');
 const fetchuser = require('../middleware/fetchuser');
 const Food = require('../models/Food');
+const Contact = require('../models/Contact');
 
 const JWT_SECRET = 'food_store@446';
 
@@ -134,5 +135,35 @@ router.put('/updateorderstatus/:id', fetchuser, requireAdmin, async (req, res) =
         res.status(500).json({ error: "Server error" });
     }
 });
+
+router.get('/fetchcontact', fetchuser, requireAdmin, async (req, res) => {
+    try {
+        const contact = await Contact.find();
+        res.json({ contact });
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).json({ error: "Server Error" });
+    }
+})
+
+router.put('/readcontact/:id/read', async (req, res) => {
+    try {
+        const updated = await Contact.findByIdAndUpdate(req.params.id, { read: true }, { new: true });
+        res.json(updated);
+    } catch (err) {
+        res.status(500).json({ error: 'Failed to mark as read' });
+    }
+});
+
+router.delete('/deletecontact/:id', fetchuser, requireAdmin, async (req, res) => {
+    try {
+        const deleted = await Contact.findByIdAndDelete(req.params.id);
+        if (!deleted) return res.status(404).send("Contact form not found");
+        res.json({ success: "Contact Form deleted", deleted });
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).json({ error: "Server Error" });
+    }
+})
 
 module.exports = router;

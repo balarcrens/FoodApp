@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 'use client'
 import { useEffect, useState, useRef } from 'react'
@@ -5,6 +6,7 @@ import { ChevronDownIcon } from '@heroicons/react/16/solid'
 import { Field, Label, Switch } from '@headlessui/react'
 import { Link } from 'react-router-dom';
 import Aos from 'aos';
+import toast from 'react-hot-toast';
 
 export default function ContactUs() {
     const [agreed, setAgreed] = useState(false)
@@ -28,24 +30,31 @@ export default function ContactUs() {
 
     const handlesubmit = async (e) => {
         e.preventDefault();
+        await toast.promise(
+            (async () => {
+                const res = await fetch("https://foodapp-backend-o8ha.onrender.com/api/contactus", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "auth-token": localStorage.getItem("auth-token")
+                    },
+                    body: JSON.stringify(formData)
+                })
 
-        try {
-            const res = await fetch("https://foodapp-backend-o8ha.onrender.com/api/contactus", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "auth-token": localStorage.getItem("auth-token")
-                },
-                body: JSON.stringify(formData)
-            })
+                const data = await res.json();
+                if (data) {
+                    throw new Error("Submittion failed");
+                }
 
-            const data = await res.json();
-            if (data.success) {
                 setFormData({ firstname: '', lastname: '', email: '', phone: '', message: '' });
+                return "Submited Successfully"
+            })(),
+            {
+                loading: "Submitting...",
+                success: "Submited Successfully!",
+                error: "Submittion failed"
             }
-        } catch (err) {
-            console.log(err);
-        }
+        );
     }
 
     useEffect(() => {
@@ -95,19 +104,19 @@ export default function ContactUs() {
                         <div>
                             <label htmlFor="firstname" className="block text-sm/6 font-semibold "> First name </label>
                             <div className="mt-2.5">
-                                <input id="firstname" onChange={handleChange} name="firstname" type="text" autoComplete="given-name" className="block w-full rounded-md px-3.5 py-2 text-base  outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600" />
+                                <input id="firstname" value={formData.firstname} onChange={handleChange} name="firstname" type="text" autoComplete="given-name" className="block w-full rounded-md px-3.5 py-2 text-base  outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600" />
                             </div>
                         </div>
                         <div>
                             <label htmlFor="lastname" className="block text-sm/6 font-semibold "> Last name </label>
                             <div className="mt-2.5">
-                                <input id="lastname" onChange={handleChange} name="lastname" type="text" autoComplete="family-name" className="block w-full rounded-md px-3.5 py-2 text-base  outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600" />
+                                <input id="lastname" value={formData.lastname} onChange={handleChange} name="lastname" type="text" autoComplete="family-name" className="block w-full rounded-md px-3.5 py-2 text-base  outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600" />
                             </div>
                         </div>
                         <div className="sm:col-span-2">
                             <label htmlFor="email" className="block text-sm/6 font-semibold "> Email </label>
                             <div className="mt-2.5">
-                                <input id="email" onChange={handleChange} name="email" type="email" autoComplete="email" className="block w-full rounded-md px-3.5 py-2 text-base  outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600" />
+                                <input id="email" onChange={handleChange} value={formData.email} name="email" type="email" autoComplete="email" className="block w-full rounded-md px-3.5 py-2 text-base  outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600" />
                             </div>
                         </div>
                         <div className="sm:col-span-2">
@@ -122,14 +131,14 @@ export default function ContactUs() {
                                         </select>
                                         <ChevronDownIcon aria-hidden="true" className="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4" />
                                     </div>
-                                    <input id="phone" onChange={handleChange} name="phone" type="number" placeholder="+91 12345 67890" className="block min-w-0 grow py-1.5 pr-3 pl-1 text-base  placeholder:text-gray-400 focus:outline-none sm:text-sm/6" />
+                                    <input id="phone" onChange={handleChange} value={formData.phone} name="phone" type="number" placeholder="+91 12345 67890" className="block min-w-0 grow py-1.5 pr-3 pl-1 text-base  placeholder:text-gray-400 focus:outline-none sm:text-sm/6" />
                                 </div>
                             </div>
                         </div>
                         <div className="sm:col-span-2">
                             <label htmlFor="message" className="block text-sm/6 font-semibold "> Message </label>
                             <div className="mt-2.5">
-                                <textarea id="message" onChange={handleChange} name="message" rows={4} className="block w-full rounded-md px-3.5 py-2 text-base  outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600" defaultValue={''} />
+                                <textarea id="message" onChange={handleChange} value={formData.message.trim()} name="message" rows={4} className="block w-full rounded-md px-3.5 py-2 text-base  outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600" />
                             </div>
                         </div>
                         <Field className="flex gap-x-4 sm:col-span-2">
