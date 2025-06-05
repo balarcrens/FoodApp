@@ -55,7 +55,7 @@ function App() {
 						<Route exact path='/profile' element={<Profile />}></Route>
 						<Route exact path='/order' element={<Order />}></Route>
 						<Route path="/forgot-password" element={<ForgotPassword />} />
-						<Route path="/reset-password/:id" element={<ResetPassword />} />
+						<Route path="/reset-password" element={<ResetPassword />} />
 						<Route exact path='/setting' element={<Setting inputType={inputType} eyeicon={eyeicon} change={change} />}></Route>
 					</Routes>
 					<Alert />

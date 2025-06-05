@@ -7,6 +7,7 @@ const { OAuth2Client } = require("google-auth-library");
 const fetchuser = require('../middleware/fetchuser.js');
 const { body, validationResult } = require('express-validator');
 const nodemailer = require('nodemailer');
+const crypto = require('crypto');
 
 const JWT_SECRET = 'food_store@446';
 const client = new OAuth2Client("226449432488-s5r459b5ovor76lfupd8npfo07t91lgi.apps.googleusercontent.com");
@@ -106,6 +107,9 @@ const transporter = nodemailer.createTransport({
     },
 });
 
+const otpStore = new Map();
+const otpGenerator = () => Math.floor(100000 + Math.random() * 900000);
+
 router.post('/forgot-password', [
     body('email').isEmail(),
 ], async (req, res) => {
@@ -118,49 +122,87 @@ router.post('/forgot-password', [
         const user = await User.findOne({ email });
         if (!user) return res.status(400).json({ error: "User can't exists. Please Login first" });
 
-        const id = await bcrypt.genSalt(10);
-
-        const resetlink = `https://foodapp-c382.onrender.com/reset-password/${id}`;
+        const otp = otpGenerator();
+        otpStore.set(email, { otp, expires: Date.now() + 5 * 60 * 1000 });
 
         await transporter.sendMail({
             from: "balarcrens@gmail.com",
             to: user.email,
             subject: 'Password Reset',
             html: `<div style="font-family: Arial, sans-serif; padding: 20px; color: #333;">
-            <h2 style="color: #007BFF;">Password Reset Request</h2>
-            <p>Hello ${user.name || ''},</p>
-            <p>We received a request to reset your password. If you made this request, please click the button below to reset your password:</p>
-            <p style="text-align: center;">
-                <a href="${resetlink}" style="background-color: #007BFF; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block;"> Reset Password </a>
-            </p>
-            <p>If the button above doesn't work, copy and paste the following link into your browser:</p>
-            <p style="word-break: break-all;"><a href="${resetlink}">${resetlink}</a></p>
-            <p>If you did not request a password reset, please ignore this email. Your password will remain unchanged.</p>
-            <p>Thanks,<br>The Support Team</p>
-        </div>`,
+                <h2>Password Reset OTP</h2>
+                <p>Hello ${user.name || ''},</p>
+                <p>Your OTP for password reset is:</p>
+                <h1 style="color: #007BFF;">${otp}</h1>
+                <p>This OTP is valid for 5 minutes.</p>
+                <p>If you did not request this, please ignore this email.</p>
+                <p>Thanks,<br>The FoodApp Support Team</p>
+            </div>`,
         });
 
-        res.json({ message: 'Reset link sent to email' });
+        res.json({ message: 'OTP sent to email' });
     } catch (error) {
         res.status(500).send({ error: "Server Error", message: error.message });
     }
 });
 
-router.post('/reset-password/:id', async (req, res) => {
-    const { email, password } = req.body;
+router.post('/verify-otp', [
+    body('email').isEmail(),
+    body('otp').isLength({ min: 6, max: 6 })
+], async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
 
     try {
-        const user = await User.findOne({ email });
+        const { email, otp } = req.body;
 
-        if (!user) return res.status(400).json({ message: 'Invalid or expired token' });
+        const record = otpStore.get(email);
+        if (!record) return res.status(400).json({ error: "OTP not found or expired." });
+
+        if (Date.now() > record.expires) {
+            otpStore.delete(email);
+            return res.status(400).json({ error: "OTP expired." });
+        }
+
+        if (parseInt(otp) !== record.otp) return res.status(400).json({ error: "Invalid OTP." });
+
+        const verificationToken = crypto.randomBytes(20).toString('hex');
+        otpStore.set(email, { ...record, verified: true, otptoken: verificationToken });
+
+        res.json({ message: "OTP verified", otptoken: verificationToken });
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).json({ error: "Server error" });
+    }
+});
+
+router.post('/reset-password', [
+    body('email').isEmail(),
+    body('password').isLength({ min: 6 }),
+    body('otptoken').notEmpty()
+], async (req, res) => {
+    try {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
+
+        const { email, password, otptoken } = req.body;
+        const record = otpStore.get(email);
+
+        if (!record || !record.verified || record.otptoken !== otptoken) {
+            return res.status(400).json({ error: "Unauthorized or expired token." });
+        }
+
+        const user = await User.findOne({ email });
+        if (!user) return res.status(400).json({ error: "User not found." });
 
         const salt = await bcrypt.genSalt(10);
         user.password = await bcrypt.hash(password, salt);
-
         await user.save();
 
-        res.json({ message: 'Password updated successfully' });
-    } catch (err) {
+        otpStore.delete(email);
+        res.json({ message: "Password reset successful." });
+    } catch (error) {
+        console.error(error.message);
         res.status(500).json({ error: "Server error" });
     }
 });

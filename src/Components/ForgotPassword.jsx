@@ -1,9 +1,12 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function ForgotPassword() {
     const [email, setEmail] = useState('');
     const [message, setMessage] = useState('');
+    const [otpSent, setOtpSent] = useState(false);
+    const [otp, setOtp] = useState('');
+    const navigate = useNavigate();
 
     if (localStorage.getItem("auth-token")) {
         localStorage.removeItem("auth-token");
@@ -14,18 +17,39 @@ export default function ForgotPassword() {
         try {
             const res = await fetch('http://localhost:1234/api/auth/forgot-password', {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email })
             });
 
             const data = await res.json();
+            if (res.ok) {
+                setMessage("OTP sent to your email");
+                setOtpSent(true);
+            } else {
+                setMessage(data.error || "Something went wrong");
+            }
+        } catch (error) {
+            setMessage(error.message);
+        }
+    };
 
-            console.log(data);
+    const handleVerifyOTP = async (e) => {
+        e.preventDefault();
+        try {
+            const res = await fetch('http://localhost:1234/api/auth/verify-otp', {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email, otp })
+            });
 
-            setMessage(data.message || data.error);
-            setEmail('');
+            const data = await res.json();
+            
+            if (res.ok) {
+                localStorage.setItem("otptoken", data.otptoken);
+                navigate("/reset-password");
+            } else {
+                setMessage(data.error || "Invalid OTP");
+            }
         } catch (error) {
             setMessage(error.message);
         }
@@ -43,25 +67,38 @@ export default function ForgotPassword() {
             <div className={`sm:w-xl w-full sm:p-8 p-6 rounded shadow-xl ${localStorage.getItem('theme') === 'dark' && 'shadow-white/10'}`}>
                 <h2 className="text-xl text-center font-bold mb-4">Forgot Password</h2>
 
-                <form onSubmit={handleSubmit} className='space-y-6 '>
+                <form onSubmit={otpSent ? handleVerifyOTP : handleSubmit} className='space-y-6'>
                     <div>
                         <label htmlFor="email" className="block font-medium "> Email address </label>
-                        <div className="mt-2">
-                            <input id="email" name="email" type="email" required autoComplete="" className="block w-full rounded-md px-3 py-1.5 text-base  outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600" value={email} onChange={e => setEmail(e.target.value)} placeholder="you@example.com" />
-                        </div>
+                        <input id="email" name="email" type="email" required disabled={otpSent}
+                            className="block w-full rounded-md px-3 py-1.5 text-base outline-1 outline-gray-300"
+                            value={email} onChange={e => setEmail(e.target.value)} placeholder="you@example.com" />
                     </div>
 
-                    <div>
-                        <button type="submit" className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" > Send OTP </button>
-                    </div>
+                    {otpSent && (
+                        <div>
+                            <label htmlFor="otp" className="block font-medium "> Enter OTP </label>
+                            <input id="otp" name="otp" type="text" required
+                                className="block w-full rounded-md px-3 py-1.5 text-base outline-1 outline-gray-300"
+                                value={otp} onChange={e => setOtp(e.target.value)} placeholder="Enter OTP" />
+                        </div>
+                    )}
+
+                    <button type="submit"
+                        className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-white font-semibold hover:bg-indigo-500">
+                        {otpSent ? "Verify OTP" : "Send OTP"}
+                    </button>
                 </form>
 
-
                 {message && (
-                    <p className={`mt-4 text-center bg-white/10 p-1 rounded ${message.toLowerCase().includes('link sent') ? 'text-green-600' : 'text-red-600'}`}> {message} </p>
+                    <p className={`mt-4 text-center bg-white/10 p-1 rounded ${message.toLowerCase().includes('otp sent') ? 'text-green-600' : 'text-red-600'}`}>
+                        {message}
+                    </p>
                 )}
             </div>
-            <Link to='/login' className="font-semibold text-indigo-500 hover:text-indigo-400 mt-10 "> <i className="fa-solid fa-arrow-left"></i> Back to Login</Link>
+            <Link to='/login' className="font-semibold text-indigo-500 hover:text-indigo-400 mt-10">
+                <i className="fa-solid fa-arrow-left"></i> Back to Login
+            </Link>
         </div>
     );
 }

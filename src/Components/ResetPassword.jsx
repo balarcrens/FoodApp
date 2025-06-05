@@ -1,10 +1,19 @@
-import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function ResetPassword() {
-    const { id } = useParams();
     const [form, setForm] = useState({ email: "", password: "", confirm: "" });
     const [message, setMessage] = useState('');
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const otptoken = localStorage.getItem("otptoken");
+
+        if (!otptoken) {
+            navigate("/forgot-password");
+        }
+    }, []);
 
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value })
@@ -17,17 +26,19 @@ export default function ResetPassword() {
         }
 
         try {
-            const res = await fetch(`http://localhost:1234/api/auth/reset-password/${id}`, {
+            const res = await fetch(`http://localhost:1234/api/auth/reset-password`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify({ email: form.email, password: form.password })
+                body: JSON.stringify({ email: form.email, password: form.password, otptoken: localStorage.getItem("otptoken") })
             });
             const data = await res.json();
 
             if (data) {
-                setForm({ email: "", password: "", confirm: "" })
+                setForm({ email: "", password: "", confirm: "" });
+                localStorage.removeItem("otptoken");
+                navigate('/forgot-password')
             }
             setMessage(data.message);
         } catch (err) {
@@ -69,13 +80,16 @@ export default function ResetPassword() {
                     </div>
 
                     <div>
-                        <button type="submit" className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" > Reset Password </button>
+                        <button type="submit" className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" > Change Password </button>
                     </div>
 
                 </form>
 
                 {message && <p className="mt-4 text-center text-green-600">{message}</p>}
             </div>
+            <Link to='/forgot-password' className="font-semibold text-indigo-500 hover:text-indigo-400 mt-10">
+                <i className="fa-solid fa-arrow-left"></i> Back Send OTP
+            </Link>
         </div>
     );
 }
