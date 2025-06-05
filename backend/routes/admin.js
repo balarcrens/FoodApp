@@ -64,6 +64,16 @@ router.get('/fetchuserdata', fetchuser, requireAdmin, async (req, res) => {
     }
 })
 
+router.get('/fetchuser/:id', fetchuser, requireAdmin, async (req, res) => {
+    try {
+        const users = await User.findById(req.params.id);
+        res.json(users);
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).send({ error: "Server Error" });
+    }
+})
+
 router.post('/addfood', fetchuser, requireAdmin, [
     body('name', 'Name is required').notEmpty(),
     body('img', 'Image URL is required').notEmpty(),

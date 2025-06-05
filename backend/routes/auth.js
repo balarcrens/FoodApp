@@ -209,7 +209,6 @@ router.post('/verify-google-token', async (req, res) => {
 router.get('/getuser', fetchuser, async (req, res) => {
     try {
         const user = await User.findById(req.user.id).select("-password");
-        console.log(user);
         res.send({ user });
     } catch (err) {
         console.error("err" + err);

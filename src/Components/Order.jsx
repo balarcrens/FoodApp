@@ -35,6 +35,10 @@ export default function Order() {
 
     if (error) return <div className="text-center mt-10 text-red-500">{error}</div>;
 
+    const today = new Date();
+    const yesterday = new Date(today);
+    yesterday.setDate(today.getDate() - 1);
+    
     return (
         <>
             <div aria-hidden="true" className="fixed inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]">
@@ -69,18 +73,18 @@ export default function Order() {
                                             }, {})
                                         ).map(([date, orders]) => (
                                             <div key={date} className="mb-10">
-                                                <h1 className="text-xl font-bold mb-4 text-right text-blue-500">{date}</h1>
+                                                <h1 className="text-xl font-bold mb-4 text-right text-blue-500">{date === today.toDateString() ? "Today" : date === yesterday.toDateString() ? "Yesterday" : date}</h1>
                                                 {orders.map(order => (
                                                     <div key={order._id} className="rounded-lg text-center sm:text-left shadow-md p-3 sm:p-6 m-0 border border-gray-200 mb-4">
                                                         <div className='flex justify-between items-center sm:items-start flex-wrap flex-col sm:flex-row'>
                                                             <img src={`https://foodapp-c382.onrender.com/${order.img}`} alt={order.name} className="w-32 h-32 object-cover rounded-lg shadow-lg mx-auto sm:mx-0" />
-                                                            <span className={`px-3 py-1 h-fit w-fit rounded-full font-semibold inline-block  ${order.status === "Processing" ? "bg-yellow-100 text-yellow-700" : ""} ${order.status === "Out for Delivery" ? "bg-blue-100 text-blue-700 animate-pulse" : ""} ${order.status === "Delivered" ? "bg-green-100 text-green-700" : ""} ${order.status === "Cancelled" ? "bg-red-100 text-red-700" : ""}`}> { order.status } </span>
+                                                            <span className={`px-3 py-1 h-fit w-fit rounded-full font-semibold inline-block  ${order.status === "Processing" ? "bg-yellow-100 text-yellow-700 animate-pulse" : ""} ${order.status === "Out for Delivery" ? "bg-blue-100 text-blue-700 animate-pulse" : ""} ${order.status === "Delivered" ? "bg-green-100 text-green-700" : ""} ${order.status === "Cancelled" ? "bg-red-100 text-red-700" : ""}`}> {order.status} </span>
                                                         </div>
                                                         <>
                                                             <div className="flex flex-wrap justify-around sm:justify-between items-center mb-4 mt-2">
                                                                 <div>
                                                                     <h2 className="text-xl font-semibold">{order.name}</h2>
-                                                                    <p className="mb-3 text-right">{new Date(order.date).toLocaleString()}</p>
+                                                                    <p className="mb-3">{new Date(order.date).toLocaleString()}</p>
                                                                 </div>
                                                                 <div>
                                                                     <span className="text-green-600 font-bold text-lg"> ₹{order.price} /- </span>

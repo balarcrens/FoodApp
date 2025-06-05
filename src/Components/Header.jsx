@@ -67,14 +67,14 @@ export default function Header() {
                         <img alt="" src="/images/logo.png" className="h-10 w-auto" />
                     </Link>
                 </div>
-                
+
                 <PopoverGroup className="hidden lg:flex lg:gap-x-12">
                     <Link to="/" className={`font-semibold hover:text-indigo-500 ${location.pathname === "/" ? 'text-indigo-500' : ''}`}> Home </Link>
                     <Link to="/foods" className={`font-semibold hover:text-indigo-500 ${location.pathname === "/foods" ? 'text-indigo-500' : ''}`}> Foods </Link>
                     <Link to="/contactus" className={`font-semibold hover:text-indigo-500 ${location.pathname === "/contactus" ? 'text-indigo-500' : ''}`}> ContactUs </Link>
                     <Link to="/aboutus" className={`font-semibold hover:text-indigo-500 ${location.pathname === "/aboutus" ? 'text-indigo-500' : ''}`}> AboutUs </Link>
                 </PopoverGroup>
-                
+
                 <div className="flex flex-1 text-right justify-end">
                     <div className={`mx-2 flex justify-center items-center rounded-full p-1 cursor-pointer`}>
                         <span className={`material-symbols-outlined font-bold transform transition-transform duration-300 ease-in-out ${rotated ? 'rotate-360' : 'rotate-0'} `} onClick={handlemodeicon}>
@@ -89,7 +89,7 @@ export default function Header() {
                         <Bars3Icon aria-hidden="true" className="size-6" />
                     </button>
                 </div>
-                
+
                 {
                     !localStorage.getItem("auth-token") ?
                         <div className="hidden lg:flex lg:justify-end">
@@ -97,7 +97,10 @@ export default function Header() {
                         </div> :
                         <div className="hidden lg:flex lg:justify-end">
                             <Menu as="div" className="relative ml-3">
-                                <div>
+                                <div onClick={() => {
+                                    document.documentElement.style.overflow = 'auto';
+                                    document.documentElement.style.paddingRight = '0px';
+                                }}>
                                     <MenuButton className="relative flex rounded-full focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-hidden">
                                         <span className="absolute -inset-1.5" />
                                         <span className="sr-only">Open user menu</span>
@@ -125,7 +128,7 @@ export default function Header() {
                             <Modal open={open} setOpen={setOpen} action="Logout" handlelogout={() => handlelogout()} />
                         </div>
                 }
-            </nav>
+            </nav >
             <Dialog open={mobileMenuOpen} onClose={setMobileMenuOpen} className="lg:hidden">
                 <div className="fixed inset-0 z-10" />
                 <DialogPanel className={`fixed inset-y-0 right-0 z-10 w-full overflow-y-auto ${localStorage.getItem('theme') === 'dark' ? 'bg-gray-800 text-white' : 'bg-white text-black'} sm:px-6 px-2 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10`}>
@@ -171,6 +174,6 @@ export default function Header() {
                     </div>
                 </DialogPanel>
             </Dialog>
-        </header>
+        </header >
     )
 }
