@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import AOS from "aos";
 import { Link } from "react-router-dom";
 
@@ -8,9 +8,13 @@ export default function Foods() {
     const [search, setSearch] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 8;
+    const foodSectionRef = useRef(null);
 
     const goToPage = (pageNumber) => {
         setCurrentPage(pageNumber);
+        if (foodSectionRef.current) {
+            foodSectionRef.current.scrollIntoView({ behavior: "smooth" });
+        }
     };
 
     const host = "https://foodapp-backend-o8ha.onrender.com"
@@ -69,7 +73,7 @@ export default function Foods() {
                         <div aria-hidden="true" className="absolute inset-x-0 top-[-15rem] -z-10 transform-gpu overflow-hidden blur-2xl sm:top-[-25rem]">
                             <div style={{ clipPath: 'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)', }} className="relative left-1/2 -z-10 aspect-1155/678 w-[36.125rem] max-w-none -translate-x-1/2 rotate-[30deg] bg-linear-to-tr from-[#ff80b5] to-[#9089fc] opacity-50 sm:left-[calc(50%-40rem)] sm:w-[72.1875rem]" />
                         </div>
-                        <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+                        <div className="mx-auto max-w-7xl py-16 px-8 lg:px-8" ref={foodSectionRef}>
                             <div className="flex flex-wrap justify-evenly sm:justify-between w-full gap-2 sm:w-auto mb-5">
                                 <h2 className="text-2xl font-bold text-center my-auto sm:flex-none sm:mx-0"> Foods </h2>
                                 <div className="relative">

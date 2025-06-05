@@ -91,7 +91,7 @@ export default function ForgotPassword() {
                 </form>
 
                 {message && (
-                    <p className={`mt-4 text-center bg-white/10 p-1 rounded ${message.toLowerCase().includes('otp sent') ? 'text-green-600' : 'text-red-600'}`}>
+                    <p className={`mt-4 text-center bg-white/20 p-1 rounded ${message.toLowerCase().includes('otp sent') ? 'text-green-500' : 'text-red-600'}`}>
                         {message}
                     </p>
                 )}

@@ -6,7 +6,7 @@ import { useContext, useEffect, useState } from 'react'
 import AOS from "aos";
 import toast from 'react-hot-toast';
 import UserContext from '../Context/users/userContext';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 export default function FoodDetail() {
     const { id } = useParams();
@@ -188,6 +188,11 @@ export default function FoodDetail() {
 
     return (
         <>
+            <div className='flex flex-start px-6 sm:px-12'>
+                <Link to='/' className={`font-semibold ${localStorage.getItem('theme')==='dark' ? 'text-white/80' : 'text-indigo-500'} hover:text-indigo-400 mt-4`}>
+                    <i className="fa-solid fa-arrow-left"></i> Go Back
+                </Link>
+            </div>
             {
                 isloading ? (<div className="text-center flex min-h-screen flex-col justify-center">
                     <div role="status">

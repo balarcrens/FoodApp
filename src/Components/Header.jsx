@@ -137,7 +137,7 @@ export default function Header() {
                             <span className="sr-only">FoodApp</span>
                             <img alt="" src="/images/logo.png" className="h-10 w-auto" />
                         </Link>
-                        <button type="button" onClick={() => setMobileMenuOpen(false)} className="-m-2.5 rounded-md p-2.5">
+                        <button type="button" onClick={() => setMobileMenuOpen(false)} className=" rounded-md p-2.5">
                             <span className="sr-only">Close menu</span>
                             <XMarkIcon aria-hidden="true" className="size-6" />
                         </button>
@@ -145,10 +145,10 @@ export default function Header() {
                     <div className="mt-6 flow-root">
                         <div className={`-my-6 divide-y ${localStorage.getItem('theme') === 'dark' ? 'divide-white/20' : 'divide-gray-500/20'}`}>
                             <div className="space-y-2 py-6">
-                                <Link to="/" className={`-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold ${location.pathname === "/" ? 'text-indigo-600' : ''}`}> Home </Link>
-                                <Link to="/foods" className={`-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold ${location.pathname === "/foods" ? 'text-indigo-600' : ''}`}> Foods </Link>
-                                <Link to="/contactus" className={`-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold ${location.pathname === "/contactus" ? 'text-indigo-600' : ''}`}> ContactUs </Link>
-                                <Link to="/aboutus" className={`-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold ${location.pathname === "/aboutus" ? 'text-indigo-600' : ''}`}> AboutUs </Link>
+                                <Link to="/" className={`mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold ${location.pathname === "/" ? 'text-indigo-600' : ''}`}> Home </Link>
+                                <Link to="/foods" className={`mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold ${location.pathname === "/foods" ? 'text-indigo-600' : ''}`}> Foods </Link>
+                                <Link to="/contactus" className={`mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold ${location.pathname === "/contactus" ? 'text-indigo-600' : ''}`}> ContactUs </Link>
+                                <Link to="/aboutus" className={`mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold ${location.pathname === "/aboutus" ? 'text-indigo-600' : ''}`}> AboutUs </Link>
                             </div>
                             <div className="flex flex-wrap p-2 justify-center sm:justify-normal sm:text-left text-center">
                                 <img src={profilepic !== 'null' ? profilepic : "/images/user.png"} className='rounded-full border' height="50px" width="50px" alt="" />
@@ -162,12 +162,12 @@ export default function Header() {
                                     <Link to="/login" className="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold  "> Login / Signup </Link>
                                     : <>
                                         <div className="space-y-1 py-4">
-                                            <Link to="/order" className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold  "> Orders <i className="px-1 fa-solid fa-box"></i> </Link>
-                                            <Link to="/profile" className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold  "> Profile <i className="px-1 fa-solid fa-user"></i> </Link>
-                                            <Link to="/setting" className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold  "> Setting <i className="px-1 fa-solid fa-gear"></i> </Link>
+                                            <Link to="/order" className={`mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold ${location.pathname === "/order" ? 'text-indigo-600' : ''}`}> Orders <i className="px-1 fa-solid fa-box"></i> </Link>
+                                            <Link to="/profile" className={`mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold ${location.pathname === "/profile" ? 'text-indigo-600' : ''}`}> Profile <i className="px-1 fa-solid fa-user"></i> </Link>
+                                            <Link to="/setting" className={`mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold ${location.pathname === "/setting" ? 'text-indigo-600' : ''}`}> Setting <i className="px-1 fa-solid fa-gear"></i> </Link>
                                         </div>
 
-                                        <button onClick={() => { setOpen(true) }} className="-mx-3 cursor-pointer block rounded-lg px-3 py-2.5 text-base/7 font-semibold   hover:text-red-600"> Logout <i className="px-1 fa-solid fa-right-from-bracket"></i></button>
+                                        <button onClick={() => { setOpen(true) }} className="mx-3 cursor-pointer block rounded-lg px-3 py-2.5 text-base/7 font-semibold   hover:text-red-600"> Logout <i className="px-1 fa-solid fa-right-from-bracket"></i></button>
                                     </>
                             }
                         </div>
