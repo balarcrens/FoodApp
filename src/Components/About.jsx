@@ -69,7 +69,7 @@ export default function About() {
                             Our Values
                         </h2>
                         <div className="flex flex-wrap justify-center gap-8">
-                            <div className={`max-w-xs p-6 rounded-lg shadow-md ${localStorage.getItem('theme') === 'dark' ? 'border' : ''}`} data-aos="fade-right" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">
+                            <div className={`max-w-xs p-6 rounded-lg shadow-md ${localStorage.getItem('theme') === 'dark' ? 'border' : ''}`}>
                                 <h3 className="text-xl font-semibold text-indigo-600 mb-2"> Quality Ingredients </h3>
                                 <p>
                                     We use only the best ingredients to prepare our meals with care
@@ -83,7 +83,7 @@ export default function About() {
                                     arrives hot and fresh.
                                 </p>
                             </div>
-                            <div className={`max-w-xs p-6 rounded-lg shadow-md ${localStorage.getItem('theme') === 'dark' ? 'border' : ''}`} data-aos="fade-left" data-aos-duration="1000" data-aos-anchor-placement="bottom-bottom">
+                            <div className={`max-w-xs p-6 rounded-lg shadow-md ${localStorage.getItem('theme') === 'dark' ? 'border' : ''}`}>
                                 <h3 className="text-xl font-semibold text-indigo-600 mb-2"> Customer Satisfaction </h3>
                                 <p>
                                     Our customers' happiness is our top priority. We always aim to
