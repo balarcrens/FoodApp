@@ -41,6 +41,8 @@ const orderSchema = new mongoose.Schema({
         required: true,
         default: "Processing"
     },
+    cancelRequested: { type: Boolean, default: false },
+    cancelApproved: { type: Boolean, default: false },
     date: {
         type: Date,
         default: Date.now,

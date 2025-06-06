@@ -137,14 +137,36 @@ router.put('/updateorderstatus/:id', fetchuser, requireAdmin, async (req, res) =
         if (!order) return res.status(404).json({ error: "Order not found" });
 
         order.status = status;
+        order.cancelRequested = false;
         await order.save();
 
         res.json({ success: true, order });
     } catch (err) {
-        console.error(err);
+        console.error(err.message);
         res.status(500).json({ error: "Server error" });
     }
 });
+
+router.put('/approve-cancel/:id', fetchuser, requireAdmin, async (req, res) => {
+    try {
+        const order = await Order.findById(req.params.id);
+        if (!order) return res.status(404).json({ error: "Order not found" });
+
+        if (!order.cancelRequested) {
+            return res.status(404).json({ error: "Cancel not requested by user" });
+        }
+
+        order.status = "Cancelled";
+        order.cancelRequested = false;
+        order.cancelApproved = true;
+
+        await order.save();
+        res.json({ success: "Order Cancelled Successfully", order })
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).json({ error: "Server error" });
+    }
+})
 
 router.get('/fetchcontact', fetchuser, requireAdmin, async (req, res) => {
     try {

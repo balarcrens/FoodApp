@@ -69,28 +69,22 @@ export default function About() {
                             Our Values
                         </h2>
                         <div className="flex flex-wrap justify-center gap-8">
-                            <div className={`max-w-xs p-6 rounded-lg shadow-md ${localStorage.getItem('theme') === 'dark' ? 'border' : ''}`} data-aos="fade-right" data-aos-duration="1000" data-aos-anchor-placement="bottom-bottom">
-                                <h3 className="text-xl font-semibold text-indigo-600 mb-2">
-                                    Quality Ingredients
-                                </h3>
+                            <div className={`max-w-xs p-6 rounded-lg shadow-md ${localStorage.getItem('theme') === 'dark' ? 'border' : ''}`} data-aos="fade-right" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">
+                                <h3 className="text-xl font-semibold text-indigo-600 mb-2"> Quality Ingredients </h3>
                                 <p>
                                     We use only the best ingredients to prepare our meals with care
                                     and passion, ensuring great taste every time.
                                 </p>
                             </div>
                             <div className={`max-w-xs p-6 rounded-lg shadow-md ${localStorage.getItem('theme') === 'dark' ? 'border' : ''}`}>
-                                <h3 className="text-xl font-semibold text-indigo-600 mb-2">
-                                    Fast Delivery
-                                </h3>
+                                <h3 className="text-xl font-semibold text-indigo-600 mb-2"> Fast Delivery </h3>
                                 <p>
                                     We guarantee quick and efficient delivery to ensure your food
                                     arrives hot and fresh.
                                 </p>
                             </div>
                             <div className={`max-w-xs p-6 rounded-lg shadow-md ${localStorage.getItem('theme') === 'dark' ? 'border' : ''}`} data-aos="fade-left" data-aos-duration="1000" data-aos-anchor-placement="bottom-bottom">
-                                <h3 className="text-xl font-semibold text-indigo-600 mb-2">
-                                    Customer Satisfaction
-                                </h3>
+                                <h3 className="text-xl font-semibold text-indigo-600 mb-2"> Customer Satisfaction </h3>
                                 <p>
                                     Our customers' happiness is our top priority. We always aim to
                                     exceed expectations and make every meal special.
@@ -102,9 +96,7 @@ export default function About() {
 
                 <div className="py-16 px-6">
                     <div className="mx-auto max-w-7xl text-center">
-                        <h2 className="text-3xl font-semibold mb-6">
-                            Meet the Team
-                        </h2>
+                        <h2 className="text-3xl font-semibold mb-6"> Meet the Team </h2>
                         <div className="flex flex-wrap justify-center gap-8">
                             <div className={`max-w-xs p-6 rounded-lg shadow-md ${localStorage.getItem('theme') === 'dark' ? 'border' : ''}`}>
                                 <img src="/images/user.png" alt="Team Member" className="w-32 h-32 rounded-full mx-auto mb-4" />

@@ -1,9 +1,15 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
+import Modal from './Modal';
+import toast from 'react-hot-toast';
 
 export default function Order() {
     const [orderItems, setOrderItems] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedOrderId, setSelectedOrderId] = useState(null);
+
     const host = "https://foodapp-backend-o8ha.onrender.com"
 
     const totalAmount = orderItems.reduce((i, item) => i + item.price, 0);
@@ -33,12 +39,34 @@ export default function Order() {
         fetchOrders();
     }, []);
 
+    const handleCancel = async (id) => {
+        try {
+            const res = await fetch(`http://localhost:1234/api/request-cancel/${id}`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "auth-token": localStorage.getItem('auth-token')
+                }
+            })
+
+            if (!res.ok) toast.error("Failed to Cancel Order");
+            const data = await res.json();
+            if (data) {
+                toast.success('Cancellation Requested Wait for Approval', {
+                    duration: 1500
+                })
+            }
+        } catch (error) {
+            console.error(error.message);
+        }
+    }
+
     if (error) return <div className="text-center mt-10 text-red-500">{error}</div>;
 
     const today = new Date();
     const yesterday = new Date(today);
     yesterday.setDate(today.getDate() - 1);
-    
+
     return (
         <>
             <div aria-hidden="true" className="fixed inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]">
@@ -76,6 +104,9 @@ export default function Order() {
                                                 <h1 className="text-xl font-bold mb-4 text-right text-blue-500">{date === today.toDateString() ? "Today" : date === yesterday.toDateString() ? "Yesterday" : date}</h1>
                                                 {orders.map(order => (
                                                     <div key={order._id} className="rounded-lg text-center sm:text-left shadow-md p-3 sm:p-6 m-0 border border-gray-200 mb-4">
+                                                        {/* <div className='flex flex-wrap justify-end -mt-3 mb-3'>
+                                                            <span className="material-symbols-outlined"> more_horiz </span>
+                                                        </div> */}
                                                         <div className='flex justify-between items-center sm:items-start flex-wrap flex-col sm:flex-row'>
                                                             <img src={`https://foodapp-c382.onrender.com/${order.img}`} alt={order.name} className="w-32 h-32 object-cover rounded-lg shadow-lg mx-auto sm:mx-0" />
                                                             <span className={`px-3 py-1 h-fit w-fit rounded-full font-semibold inline-block  ${order.status === "Processing" ? "bg-yellow-100 text-yellow-700 animate-pulse" : ""} ${order.status === "Out for Delivery" ? "bg-blue-100 text-blue-700 animate-pulse" : ""} ${order.status === "Delivered" ? "bg-green-100 text-green-700" : ""} ${order.status === "Cancelled" ? "bg-red-100 text-red-700" : ""}`}> {order.status} </span>
@@ -99,6 +130,18 @@ export default function Order() {
                                                                 <div> <strong> Payment ID: </strong> {order.paymentID} </div>
                                                             </div>
                                                         </>
+                                                        {order.status === 'Processing' && (
+                                                            <div className='flex flex-wrap justify-end mt-4'>
+                                                                {!order.cancelRequested ? (
+                                                                    <button className='bg-red-500 hover:bg-red-700 cursor-pointer text-white px-3 py-1 rounded disabled:opacity-50' onClick={() => {
+                                                                        setSelectedOrderId(order._id);
+                                                                        setIsModalOpen(true);
+                                                                    }}> Cancel </button>
+                                                                ) : (
+                                                                    order.cancelRequested && (<span className="text-yellow-500 font-medium">Wait for Cancel Approval</span>)
+                                                                )}
+                                                            </div>
+                                                        )}
                                                     </div>
                                                 ))}
                                             </div>
@@ -111,10 +154,13 @@ export default function Order() {
                                     <span>₹{totalAmount} /-</span>
                                 </div>
                             </>
-
                     }
                 </div>
-            </div>
+            </div >
+
+            <Modal open={isModalOpen} setOpen={setIsModalOpen} selectedOrderId={selectedOrderId} action="Cancel Order" handleCancel={handleCancel}
+            />
+
             <div aria-hidden="true" className="fixed inset-x-0 top-[calc(100%-30rem)] -z-10 transform-gpu overflow-hidden blur-2xl sm:top-[calc(100%-50rem)]" >
                 <div style={{ clipPath: 'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)', }} className="relative left-[calc(50%+3rem)] aspect-1155/678 w-[36.125rem] -translate-x-1/2 bg-linear-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]" />
             </div>
