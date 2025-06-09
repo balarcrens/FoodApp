@@ -37,7 +37,7 @@ export default function Header() {
         }
     }
 
-    let profilepic = localStorage.getItem("pic") ? `${localStorage.getItem("pic")}` : '/images/user.png';
+    let profilepic = localStorage.getItem("pic") ? `${localStorage.getItem("pic")}` : `https://ui-avatars.com/api/?name=${data?.name}&background=10b981&color=fff`;
 
     useEffect(() => {
         if (user) {
@@ -104,7 +104,7 @@ export default function Header() {
                                     <MenuButton className="relative flex rounded-full focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-hidden">
                                         <span className="absolute -inset-1.5" />
                                         <span className="sr-only">Open user menu</span>
-                                        <img src={profilepic !== 'null' ? profilepic : "/images/user.png"} alt="" className="size-9 rounded-full" />
+                                        <img src={profilepic ? profilepic : "/images/user.png"} alt="" className="size-9 rounded-full" />
                                     </MenuButton>
                                 </div>
                                 <MenuItems transition className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black/5 transition shadow-xl focus:outline-hidden data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in divide-y divide-gray-500/20">
@@ -145,13 +145,13 @@ export default function Header() {
                     <div className="mt-6 flow-root">
                         <div className={`-my-6 divide-y ${localStorage.getItem('theme') === 'dark' ? 'divide-white/20' : 'divide-gray-500/20'}`}>
                             <div className="space-y-2 py-6">
-                                <Link to="/" className={`mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold ${location.pathname === "/" ? 'text-indigo-600' : ''}`}> Home </Link>
-                                <Link to="/foods" className={`mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold ${location.pathname === "/foods" ? 'text-indigo-600' : ''}`}> Foods </Link>
-                                <Link to="/contactus" className={`mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold ${location.pathname === "/contactus" ? 'text-indigo-600' : ''}`}> ContactUs </Link>
-                                <Link to="/aboutus" className={`mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold ${location.pathname === "/aboutus" ? 'text-indigo-600' : ''}`}> AboutUs </Link>
+                                <Link to="/" className={`mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold ${location.pathname === "/" ? 'text-indigo-600' : ''}`} onClick={() => setMobileMenuOpen(false)}> Home </Link>
+                                <Link to="/foods" className={`mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold ${location.pathname === "/foods" ? 'text-indigo-600' : ''}`} onClick={() => setMobileMenuOpen(false)}> Foods </Link>
+                                <Link to="/contactus" className={`mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold ${location.pathname === "/contactus" ? 'text-indigo-600' : ''}`} onClick={() => setMobileMenuOpen(false)}> ContactUs </Link>
+                                <Link to="/aboutus" className={`mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold ${location.pathname === "/aboutus" ? 'text-indigo-600' : ''}`} onClick={() => setMobileMenuOpen(false)}> AboutUs </Link>
                             </div>
                             <div className="flex flex-wrap p-2 justify-center sm:justify-normal sm:text-left text-center">
-                                <img src={profilepic !== 'null' ? profilepic : "/images/user.png"} className='rounded-full border' height="50px" width="50px" alt="" />
+                                <img src={profilepic ? profilepic : "/images/user.png"} className='rounded-full border' height="50px" width="50px" alt="" />
                                 <div>
                                     <p className='block rounded-lg px-3 font-semibold'> {data?.name} </p>
                                     <p className='block rounded-lg px-3 font-semibold'> {data?.email} </p>
@@ -162,9 +162,9 @@ export default function Header() {
                                     <Link to="/login" className="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold  "> Login / Signup </Link>
                                     : <>
                                         <div className="space-y-1 py-4">
-                                            <Link to="/order" className={`mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold ${location.pathname === "/order" ? 'text-indigo-600' : ''}`}> Orders <i className="px-1 fa-solid fa-box"></i> </Link>
-                                            <Link to="/profile" className={`mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold ${location.pathname === "/profile" ? 'text-indigo-600' : ''}`}> Profile <i className="px-1 fa-solid fa-user"></i> </Link>
-                                            <Link to="/setting" className={`mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold ${location.pathname === "/setting" ? 'text-indigo-600' : ''}`}> Setting <i className="px-1 fa-solid fa-gear"></i> </Link>
+                                            <Link to="/order" className={`mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold ${location.pathname === "/order" ? 'text-indigo-600' : ''}`} onClick={() => setMobileMenuOpen(false)}> Orders <i className="px-1 fa-solid fa-box"></i> </Link>
+                                            <Link to="/profile" className={`mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold ${location.pathname === "/profile" ? 'text-indigo-600' : ''}`} onClick={() => setMobileMenuOpen(false)}> Profile <i className="px-1 fa-solid fa-user"></i> </Link>
+                                            <Link to="/setting" className={`mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold ${location.pathname === "/setting" ? 'text-indigo-600' : ''}`} onClick={() => setMobileMenuOpen(false)}> Setting <i className="px-1 fa-solid fa-gear"></i> </Link>
                                         </div>
 
                                         <button onClick={() => { setOpen(true) }} className="mx-3 cursor-pointer block rounded-lg px-3 py-2.5 text-base/7 font-semibold   hover:text-red-600"> Logout <i className="px-1 fa-solid fa-right-from-bracket"></i></button>

@@ -68,7 +68,14 @@ export default function Login(props) {
         };
 
         async function handleCredentialResponse(response) {
-            const userInfo = await JSON.parse(atob(response.credential.split('.')[1]));
+            function parseJwt(token) {
+                try {
+                    return JSON.parse(atob(token.split('.')[1]));
+                } catch (e) {
+                    return {};
+                }
+            }
+            const userInfo = parseJwt(response.credential);
             await toast.promise(
                 (async () => {
                     const res = await fetch(`${host}/api/auth/verify-google-token`, {
