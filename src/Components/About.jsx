@@ -48,7 +48,7 @@ export default function About() {
                 </div>
                 <div className="flex flex-wrap justify-center">
                     <div className="flex justify-center" data-aos="fade-right" data-aos-duration="1000">
-                        <img ref={imgRef} src="/images/aboutus.png" className='' alt="" style={{ transform: "perspective(1000px) rotateY(0deg) rotateX(0deg)", transition: "transform 0.1s ease-out", transformStyle: "preserve-3d" }} />
+                        <img ref={imgRef} src="/images/aboutus.png" className='' alt="" style={{ transform: "perspective(1000px) rotateY(0deg) rotateX(0deg)", transition: "transform 0.1s ease-in-out", transformStyle: "preserve-3d" }} />
                     </div>
                     <div className="flex flex-col justify-center text-center" data-aos="fade-left" data-aos-duration="1000">
                         <h1 className="text-4xl mx-auto w-fit font-bold mb-4">
@@ -70,21 +70,21 @@ export default function About() {
                         </h2>
                         <div className="flex flex-wrap justify-center gap-8">
                             <div className={`max-w-xs p-6 rounded-lg shadow-md hover:shadow-lg ${localStorage.getItem('theme') === 'dark' ? 'shadow-white/50' : ''}`}>
-                                <h3 className="text-xl font-semibold text-indigo-600 mb-2"> Quality Ingredients </h3>
+                                <h3 className="text-xl font-semibold text-[#09AFF4] mb-2"> Quality Ingredients </h3>
                                 <p>
                                     We use only the best ingredients to prepare our meals with care
                                     and passion, ensuring great taste every time.
                                 </p>
                             </div>
                             <div className={`max-w-xs p-6 rounded-lg shadow-md hover:shadow-lg ${localStorage.getItem('theme') === 'dark' ? 'shadow-white/50' : ''}`}>
-                                <h3 className="text-xl font-semibold text-indigo-600 mb-2"> Fast Delivery </h3>
+                                <h3 className="text-xl font-semibold text-[#09AFF4] mb-2"> Fast Delivery </h3>
                                 <p>
                                     We guarantee quick and efficient delivery to ensure your food
                                     arrives hot and fresh.
                                 </p>
                             </div>
                             <div className={`max-w-xs p-6 rounded-lg shadow-md hover:shadow-lg ${localStorage.getItem('theme') === 'dark' ? 'shadow-white/50' : ''}`}>
-                                <h3 className="text-xl font-semibold text-indigo-600 mb-2"> Customer Satisfaction </h3>
+                                <h3 className="text-xl font-semibold text-[#09AFF4] mb-2"> Customer Satisfaction </h3>
                                 <p>
                                     Our customers' happiness is our top priority. We always aim to
                                     exceed expectations and make every meal special.
