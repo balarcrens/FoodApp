@@ -29,6 +29,7 @@ router.post('/contactus', fetchuser, [
         await Contactdata.save();
         res.status(200).json({ success: true, message: "Contact form submitted successfully." });
     } catch (error) {
+        console.error(error.message);
         res.status(500).send({error : "Server Error"});
     }
 })

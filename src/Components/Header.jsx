@@ -37,7 +37,7 @@ export default function Header() {
         }
     }
 
-    let profilepic = localStorage.getItem("pic") ? `${localStorage.getItem("pic")}` : `https://ui-avatars.com/api/?name=${data?.name}&background=10b981&color=fff`;
+    let profilepic = localStorage.getItem("pic") ? `${localStorage.getItem("pic")}` : `https://ui-avatars.com/api/?name=${data?.name}&background=4EA0FF&color=fff`;
 
     useEffect(() => {
         if (user) {
