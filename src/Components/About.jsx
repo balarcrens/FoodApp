@@ -48,7 +48,7 @@ export default function About() {
                 </div>
                 <div className="flex flex-wrap justify-center">
                     <div className="flex justify-center" data-aos="fade-right" data-aos-duration="1000">
-                        <img ref={imgRef} src="/images/aboutus.png" alt="" style={{ transform: "perspective(1000px) rotateY(0deg) rotateX(0deg)", transition: "transform 0.1s ease-out", transformStyle: "preserve-3d" }} />
+                        <img ref={imgRef} src="/images/aboutus.png" className='' alt="" style={{ transform: "perspective(1000px) rotateY(0deg) rotateX(0deg)", transition: "transform 0.1s ease-out", transformStyle: "preserve-3d" }} />
                     </div>
                     <div className="flex flex-col justify-center text-center" data-aos="fade-left" data-aos-duration="1000">
                         <h1 className="text-4xl mx-auto w-fit font-bold mb-4">
@@ -69,21 +69,21 @@ export default function About() {
                             Our Values
                         </h2>
                         <div className="flex flex-wrap justify-center gap-8">
-                            <div className={`max-w-xs p-6 rounded-lg shadow-md ${localStorage.getItem('theme') === 'dark' ? 'border' : ''}`}>
+                            <div className={`max-w-xs p-6 rounded-lg shadow-md hover:shadow-lg ${localStorage.getItem('theme') === 'dark' ? 'shadow-white/50' : ''}`}>
                                 <h3 className="text-xl font-semibold text-indigo-600 mb-2"> Quality Ingredients </h3>
                                 <p>
                                     We use only the best ingredients to prepare our meals with care
                                     and passion, ensuring great taste every time.
                                 </p>
                             </div>
-                            <div className={`max-w-xs p-6 rounded-lg shadow-md ${localStorage.getItem('theme') === 'dark' ? 'border' : ''}`}>
+                            <div className={`max-w-xs p-6 rounded-lg shadow-md hover:shadow-lg ${localStorage.getItem('theme') === 'dark' ? 'shadow-white/50' : ''}`}>
                                 <h3 className="text-xl font-semibold text-indigo-600 mb-2"> Fast Delivery </h3>
                                 <p>
                                     We guarantee quick and efficient delivery to ensure your food
                                     arrives hot and fresh.
                                 </p>
                             </div>
-                            <div className={`max-w-xs p-6 rounded-lg shadow-md ${localStorage.getItem('theme') === 'dark' ? 'border' : ''}`}>
+                            <div className={`max-w-xs p-6 rounded-lg shadow-md hover:shadow-lg ${localStorage.getItem('theme') === 'dark' ? 'shadow-white/50' : ''}`}>
                                 <h3 className="text-xl font-semibold text-indigo-600 mb-2"> Customer Satisfaction </h3>
                                 <p>
                                     Our customers' happiness is our top priority. We always aim to
@@ -98,18 +98,18 @@ export default function About() {
                     <div className="mx-auto max-w-7xl text-center">
                         <h2 className="text-3xl font-semibold mb-6"> Meet the Team </h2>
                         <div className="flex flex-wrap justify-center gap-8">
-                            <div className={`max-w-xs p-6 rounded-lg shadow-md ${localStorage.getItem('theme') === 'dark' ? 'border' : ''}`}>
-                                <img src="/images/user.png" alt="Team Member" className="w-32 h-32 rounded-full mx-auto mb-4" />
+                            <div className={`max-w-xs p-6 rounded-lg shadow-md hover:shadow-lg ${localStorage.getItem('theme') === 'dark' ? 'shadow-white/50' : ''}`}>
+                                <img src="https://avatar.iran.liara.run/public/boy" alt="Team Member" className="w-32 h-32 rounded-full mx-auto mb-4" />
                                 <h3 className="text-xl font-semibold  mb-2">...</h3>
                                 <p>Founder & CEO</p>
                             </div>
-                            <div className={`max-w-xs p-6 rounded-lg shadow-md ${localStorage.getItem('theme') === 'dark' ? 'border' : ''}`}>
-                                <img src="/images/user.png" alt="Team Member" className="w-32 h-32 rounded-full mx-auto mb-4" />
+                            <div className={`max-w-xs p-6 rounded-lg shadow-md hover:shadow-lg ${localStorage.getItem('theme') === 'dark' ? 'shadow-white/50' : ''}`}>
+                                <img src="https://avatar.iran.liara.run/public" alt="Team Member" className="w-32 h-32 rounded-full mx-auto mb-4" />
                                 <h3 className="text-xl font-semibold  mb-2">...</h3>
                                 <p>Head Chef</p>
                             </div>
-                            <div className={`max-w-xs p-6 rounded-lg shadow-md ${localStorage.getItem('theme') === 'dark' ? 'border' : ''}`}>
-                                <img src="/images/user.png" alt="Team Member" className="w-32 h-32 rounded-full mx-auto mb-4" />
+                            <div className={`max-w-xs p-6 rounded-lg shadow-md hover:shadow-lg ${localStorage.getItem('theme') === 'dark' ? 'shadow-white/50' : ''}`}>
+                                <img src="https://avatar.iran.liara.run/public/girl" alt="Team Member" className="w-32 h-32 rounded-full mx-auto mb-4" />
                                 <h3 className="text-xl font-semibold  mb-2">...</h3>
                                 <p>Customer Service</p>
                             </div>
