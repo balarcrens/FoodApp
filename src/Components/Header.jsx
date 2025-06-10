@@ -116,7 +116,7 @@ export default function Header() {
                                             <Link to="/order" className="block px-4 py-2  text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden hover:text-indigo-600" ><i className="px-1 fa-solid fa-box"></i> Orders </Link>
                                         </MenuItem>
                                         <MenuItem>
-                                            <Link to="/setting" className="block px-4 py-2  text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden hover:text-indigo-600" ><i className="px-1 fa-solid fa-gear"></i>  Settings
+                                            <Link to="/setting" className="block px-4 py-2 text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden hover:text-indigo-600" ><i className="px-1 fa-solid fa-gear"></i>  Settings
                                             </Link>
                                         </MenuItem>
                                     </div>
@@ -159,7 +159,7 @@ export default function Header() {
                             </div>
                             {
                                 !localStorage.getItem("auth-token") ?
-                                    <Link to="/login" className="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold  "> Login / Signup </Link>
+                                    <Link to="/login" className="mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold" onClick={() => setMobileMenuOpen(false)}> Login / Signup </Link>
                                     : <>
                                         <div className="space-y-1 py-4">
                                             <Link to="/order" className={`mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold ${location.pathname === "/order" ? 'text-indigo-600' : ''}`} onClick={() => setMobileMenuOpen(false)}> Orders <i className="px-1 fa-solid fa-box"></i> </Link>
