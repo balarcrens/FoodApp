@@ -4,10 +4,28 @@ import { Link } from 'react-router-dom'
 
 export default function Login(props) {
     const [cred, setcred] = useState({ email: "", password: "" });
-    const host = "https://foodapp-backend-o8ha.onrender.com"
+    const host = "https://foodapp-backend-o8ha.onrender.com";
+    const [recaptchaReady, setRecaptchaReady] = useState(false);
+
+    const SITE_KEY = "6LfShVsrAAAAAKN7F-vVr2PAPhQspm93Rc7eEyAo"; // replace with your actual v3 site key
+
+    useEffect(() => {
+        const script = document.createElement("script");
+        script.src = `https://www.google.com/recaptcha/api.js?render=${SITE_KEY}`;
+        script.async = true;
+        script.onload = () => setRecaptchaReady(true);
+        document.body.appendChild(script);
+    }, []);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        if (!recaptchaReady || !window.grecaptcha) {
+            toast.error("reCAPTCHA not ready. Please try again.");
+            return;
+        }
+
+        const token = await window.grecaptcha.execute(SITE_KEY, { action: 'login' });
 
         await toast.promise(
             (async () => {
@@ -16,16 +34,16 @@ export default function Login(props) {
                     headers: {
                         "Content-Type": "application/json"
                     },
-                    body: JSON.stringify({ email: cred.email, password: cred.password })
+                    body: JSON.stringify({
+                        email: cred.email,
+                        password: cred.password,
+                        recaptchaToken: token
+                    })
                 });
                 const data = await response.json();
 
                 if (!response.ok || !data.token) {
-                    throw new Error("Invalid credentials");
-                }
-
-                if (data.error === "User can't exists") {
-                    throw new Error("User can't exists");
+                    throw new Error(data.error || "Login failed");
                 }
 
                 localStorage.setItem("auth-token", data.token);
@@ -34,11 +52,11 @@ export default function Login(props) {
             {
                 loading: "Logging in...",
                 success: "Login successful!",
-                error: "Invalid credentials. Please try again."
+                error: "Invalid credentials or CAPTCHA failed"
             }
         );
-    }
-
+    };
+    
     useEffect(() => {
         const script = document.createElement("script");
         script.src = "https://accounts.google.com/gsi/client";

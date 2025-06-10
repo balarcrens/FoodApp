@@ -66,13 +66,28 @@ router.post('/createuser', [
 
 router.post('/login', [
     body('email').isEmail(),
-    body('password').exists()
+    body('password').exists(),
+    body('recaptchaToken').exists()
 ], async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
 
     try {
-        const { email, password } = req.body;
+        const { email, password, recaptchaToken } = req.body;
+
+        const secret = '6LfShVsrAAAAANBG-Ve5aA2MouvjuSgi3FuGYBbC';
+
+        const captchaRes = await fetch('https://www.google.com/recaptcha/api/siteverify', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: `secret=${secret}&response=${recaptchaToken}`
+        });
+
+        const captchaData = await captchaRes.json();
+
+        if (!captchaData.success || captchaData.score < 0.5 || captchaData.action !== 'login') {
+            return res.status(400).json({ error: "reCAPTCHA verification failed or low score" });
+        }
 
         const user = await User.findOne({ email });
         if (!user) return res.status(400).json({ error: "User can't exists" });
