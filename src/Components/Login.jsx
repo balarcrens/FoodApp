@@ -7,7 +7,7 @@ export default function Login(props) {
     const host = "https://foodapp-backend-o8ha.onrender.com";
     const [recaptchaReady, setRecaptchaReady] = useState(false);
 
-    const SITE_KEY = "6LfShVsrAAAAAKN7F-vVr2PAPhQspm93Rc7eEyAo"; // replace with your actual v3 site key
+    const SITE_KEY = "6LfShVsrAAAAAEO3Q_dfYCqYTj6avGlbLfOyaGy8";
 
     useEffect(() => {
         const script = document.createElement("script");
@@ -56,7 +56,7 @@ export default function Login(props) {
             }
         );
     };
-    
+
     useEffect(() => {
         const script = document.createElement("script");
         script.src = "https://accounts.google.com/gsi/client";
