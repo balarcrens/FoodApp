@@ -20,7 +20,7 @@ export default function Profile() {
         }
     }, [user]);
 
-    let profilepic = localStorage.getItem("pic") ? `${localStorage.getItem("pic")}` : `https://ui-avatars.com/api/?name=${data?.name}&background=4EA0FF&color=fff`;
+    let profilepic = localStorage.getItem("pic") ? `${localStorage.getItem("pic")}` : `https://ui-avatars.com/api/?name=${data?.name}&background=random&color=ffffff`;
 
     const handlelogout = () => {
         try {

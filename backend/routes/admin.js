@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 const express = require('express');
+const axios = require('axios');
 const router = express.Router();
 const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
@@ -21,8 +22,25 @@ router.post('/login', [
     if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
 
     try {
-        const { email, password } = req.body;
+        const { email, password, recaptchaToken } = req.body;
         const user = await User.findOne({ email });
+
+        const secret = "6LcsaFsrAAAAAHpVfcYf_MSxPdiMD5ZIffRYK12w";
+
+        try {
+            const recaptchaRes = await axios.post(`https://www.google.com/recaptcha/api/siteverify`, null, {
+                params: {
+                    secret: secret,
+                    response: recaptchaToken
+                }
+            });
+
+            if (!recaptchaRes.data.success) {
+                return res.status(400).json({ error: "Failed reCAPTCHA verification" });
+            }
+        } catch (err) {
+            return res.status(500).json({ error: "reCAPTCHA verification failed" });
+        }
 
         if (!user)
             return res.status(400).json({ error: "Invalid email or Password" });

@@ -1,7 +1,5 @@
 /* eslint-disable no-unused-vars */
 'use client'
-import { Dialog, DialogBackdrop, DialogPanel } from '@headlessui/react'
-import { XMarkIcon } from '@heroicons/react/24/outline'
 import { useContext, useEffect, useState } from 'react'
 import AOS from "aos";
 import toast from 'react-hot-toast';
@@ -188,8 +186,8 @@ export default function FoodDetail() {
 
     return (
         <>
-            <div className='flex flex-start px-6 sm:px-12'>
-                <Link to='/' className={`font-semibold ${localStorage.getItem('theme')==='dark' ? 'text-white/80' : 'text-indigo-500'} hover:text-indigo-400 mt-4`}>
+            <div className='flex flex-start px-6 sm:px-12 md:mx-20'>
+                <Link to='/' className={`font-semibold ${localStorage.getItem('theme') === 'dark' ? 'text-[#09AFF4]' : 'text-indigo-600'} hover:text-indigo-500 mt-4`}>
                     <i className="fa-solid fa-arrow-left"></i> Go Back
                 </Link>
             </div>
@@ -204,7 +202,7 @@ export default function FoodDetail() {
                     </div>
                 </div>) :
                     (
-                        <div className="grid text-center min-h-screen md:mx-20 grid-cols-1 lg:grid-cols-2 gap-6 py-12 px-4 sm:px-12">
+                        <div className="grid text-center md:mx-20 grid-cols-1 lg:grid-cols-2 gap-6 py-12 px-4 sm:px-12">
                             <div aria-hidden="true" className="absolute inset-x-0 top-[-15rem] -z-10 transform-gpu overflow-hidden blur-2xl sm:top-[-25rem]">
                                 <div style={{ clipPath: 'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)', }} className="relative left-1/2 -z-10 aspect-1155/678 w-[36.125rem] max-w-none -translate-x-1/2 rotate-[30deg] bg-linear-to-tr from-[#ff80b5] to-[#9089fc] opacity-50 sm:left-[calc(50%-40rem)] sm:w-[72.1875rem]" />
                             </div>
@@ -228,15 +226,15 @@ export default function FoodDetail() {
                                                 {ingredients.map((item) => (
                                                     <label key={item.name} className="flex items-center justify-center space-x-2 ">
                                                         <input type="checkbox" checked={!!selectedIngredients.find(i => i.name === item.name)} onChange={() => handleIngredientToggle(item)} className="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500" />
-                                                        <span>{item.name} <span className='text-indigo-600 hover:text-indigo-900'> ₹{item.price} </span></span>
+                                                        <span>{item.name} <span className='text-[#09AFF4] hover:text-indigo-500'> ₹{item.price} </span></span>
                                                     </label>
                                                 ))}
                                             </div>
                                         </div>
 
                                         <div className="my-3 flex justify-center items-center flex-wrap gap-2">
-                                            <label htmlFor="size" className=" font-semibold">Choose Size:</label>
-                                            <select id="size" value={size} onChange={(e) => setSize(e.target.value)} className="border border-gray-300 rounded-md px-4 py-2  focus:outline-none focus:ring-2 focus:ring-indigo-500" >
+                                            <label htmlFor="size" className="font-semibold">Choose Size:</label>
+                                            <select id="size" value={size} onChange={(e) => setSize(e.target.value)} className={`border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 ${localStorage.getItem('theme') === 'dark' ? 'text-white bg-[#060922]' : 'text-gray-800'}`}>
                                                 <option value="sm">Small</option>
                                                 <option value="lg">Large +₹{sizePrice.lg}</option>
                                                 <option value="xl">Extra Large +₹{sizePrice.xl}</option>
@@ -269,7 +267,7 @@ export default function FoodDetail() {
                                 <p className="text-lg font-bold text-indigo-600 my-2">Total: ₹{totalPrice}</p>
 
                                 {
-                                    food.isAvailable ? <button className="cursor-pointer w-full bg-indigo-600 text-white py-2 rounded-md hover:bg-indigo-700" onClick={handlePayment}>
+                                    food.isAvailable ? <button className="cursor-pointer w-full bg-indigo-600 text-white py-2 md:w-[50%] mx-auto rounded-md hover:bg-indigo-700" onClick={handlePayment}>
                                         Order Now
                                     </button> : <div className='text-lg font-bold text-red-500 text-center'> Out off Stock </div>
                                 }
