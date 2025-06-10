@@ -25,17 +25,20 @@ router.post('/login', [
         const { email, password, recaptchaToken } = req.body;
         const user = await User.findOne({ email });
 
-        const secret = "6LcKhFsrAAAAAIk8tMr5KjlSskJOtAE_UMYWBaza";
+        const secret = '6LfShVsrAAAAANBG-Ve5aA2MouvjuSgi3FuGYBbC';
 
-        try {
-            await fetch(`https://www.google.com/recaptcha/api/siteverify`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: `secret=${secret}&response=${recaptchaToken}`
-            });
-        } catch (err) {
-            return res.status(500).json({ error: "reCAPTCHA verification failed" });
+        const captchaRes = await fetch('https://www.google.com/recaptcha/api/siteverify', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: `secret=${secret}&response=${recaptchaToken}`
+        });
+
+        const captchaData = await captchaRes.json();
+
+        if (!captchaData.success || captchaData.score < 0.5 || captchaData.action !== 'login') {
+            return res.status(400).json({ error: "reCAPTCHA verification failed or low score" });
         }
+
 
         if (!user)
             return res.status(400).json({ error: "Invalid email or Password" });
