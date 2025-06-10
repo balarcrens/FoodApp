@@ -24,7 +24,7 @@ router.post('/login', [
         const { email, password, recaptchaToken } = req.body;
         const user = await User.findOne({ email });
 
-        const secret = "6LcsaFsrAAAAAHpVfcYf_MSxPdiMD5ZIffRYK12w";
+        const secret = "6LfOdFsrAAAAAP3-i7Nq0NiaChfoPvCaOtONzJjM";
 
         try {
             const recaptchaRes = await fetch(`https://www.google.com/recaptcha/api/siteverify?secret=${secret}&response=${recaptchaToken}`, {
