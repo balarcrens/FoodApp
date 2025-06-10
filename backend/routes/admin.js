@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 const express = require('express');
-const axios = require('axios');
 const router = express.Router();
 const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
@@ -28,11 +27,8 @@ router.post('/login', [
         const secret = "6LcsaFsrAAAAAHpVfcYf_MSxPdiMD5ZIffRYK12w";
 
         try {
-            const recaptchaRes = await axios.post(`https://www.google.com/recaptcha/api/siteverify`, null, {
-                params: {
-                    secret: secret,
-                    response: recaptchaToken
-                }
+            const recaptchaRes = await fetch(`https://www.google.com/recaptcha/api/siteverify?secret=${secret}&response=${recaptchaToken}`, {
+                method: "POST"
             });
 
             if (!recaptchaRes.data.success) {
