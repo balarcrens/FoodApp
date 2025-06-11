@@ -4,10 +4,11 @@ import { useContext, useEffect, useState } from 'react'
 import AOS from "aos";
 import toast from 'react-hot-toast';
 import UserContext from '../Context/users/userContext';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 
 export default function FoodDetail() {
     const { id } = useParams();
+    const navigate = useNavigate();
     const host = "https://foodapp-payment.onrender.com"
     const [size, setSize] = useState('sm');
     const [quantity, setQuantity] = useState(1);
@@ -17,6 +18,10 @@ export default function FoodDetail() {
     const context = useContext(UserContext);
     const [food, setfood] = useState({});
     const { user } = context;
+
+    useEffect(() => {
+        window.scrollTo();
+    }, []);
 
     useEffect(() => {
         const fetchfood = async () => {
@@ -187,7 +192,7 @@ export default function FoodDetail() {
     return (
         <>
             <div className='flex flex-start px-6 sm:px-12 md:mx-20'>
-                <Link to='/' className={`font-semibold ${localStorage.getItem('theme') === 'dark' ? 'text-[#09AFF4]' : 'text-indigo-600'} hover:text-indigo-500 mt-4`}>
+                <Link onClick={() => navigate(-1)} className={`font-semibold ${localStorage.getItem('theme') === 'dark' ? 'text-[#09AFF4]' : 'text-indigo-600'} hover:text-indigo-500 mt-4`}>
                     <i className="fa-solid fa-arrow-left"></i> Go Back
                 </Link>
             </div>
@@ -252,13 +257,11 @@ export default function FoodDetail() {
                                 <div className="my-3 flex justify-center items-center space-x-4 flex-wrap">
                                     <p className="font-semibold">Quantity:</p>
                                     <div className="flex items-center border border-gray-300 rounded-md overflow-hidden">
-                                        <button
-                                            onClick={() => setQuantity(prev => Math.max(1, prev - 1))}
+                                        <button onClick={() => setQuantity(prev => Math.max(1, prev - 1))}
                                             className={`px-3 py-1 text-lg ${localStorage.getItem('theme') === 'dark' ? 'bg-gray-400 hover:bg-gray-500' : 'bg-gray-200 hover:bg-gray-300'}`}
                                         >−</button>
                                         <span className="px-4 py-1 text-lg">{quantity}</span>
-                                        <button
-                                            onClick={() => setQuantity(prev => prev + 1)}
+                                        <button onClick={() => setQuantity(prev => prev + 1)}
                                             className={`px-3 py-1 text-lg ${localStorage.getItem('theme') === 'dark' ? 'bg-gray-400 hover:bg-gray-500' : 'bg-gray-200 hover:bg-gray-300'}`}
                                         >+</button>
                                     </div>
