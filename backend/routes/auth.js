@@ -10,7 +10,7 @@ const nodemailer = require('nodemailer');
 const crypto = require('crypto');
 
 const JWT_SECRET = 'food_store@446';
-const client = new OAuth2Client("226449432488-s5r459b5ovor76lfupd8npfo07t91lgi.apps.googleusercontent.com");
+const client = new OAuth2Client("1047644053034-4q125ihqoo4f86otgq3b66bev8avcvkf.apps.googleusercontent.com");
 
 router.post('/createuser', [
     body('name').notEmpty(),
