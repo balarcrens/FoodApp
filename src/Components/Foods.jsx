@@ -1,6 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import AOS from "aos";
 import { Link } from "react-router-dom";
+import FoodContext from "../Context/Food/FoodContext";
 
 export default function Foods() {
     const [foods, setFoods] = useState([]);
@@ -9,6 +10,8 @@ export default function Foods() {
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 8;
     const foodSectionRef = useRef(null);
+    const context = useContext(FoodContext);
+    const { favourites, toggleFavourite } = context;
 
     const goToPage = (pageNumber) => {
         setCurrentPage(pageNumber);
@@ -92,7 +95,14 @@ export default function Foods() {
                                         {currentFoods.map((food, index) => (
                                             <div key={food._id} className="group cursor-pointer" data-aos="fade-up" data-aos-duration={`${1500 + index * 100}`} data-aos-delay={`${index * 100}`} data-aos-easing="ease" data-aos-anchor-placement="top-bottom" >
                                                 <Link to={`/food/${food._id}`} className="btn w-full">
-                                                    <img src={food.img} alt={food.name + " " + food.description} className="aspect-square w-full rounded-lg bg-gray-200 object-cover group-hover:opacity-75" />
+                                                    <div>
+                                                        <img src={food.img} alt={food.name + " " + food.description} className="aspect-square w-full rounded-lg bg-gray-200 object-cover group-hover:opacity-75" />
+                                                        <button onClick={(e) => { e.preventDefault();
+                                                                toggleFavourite(food._id);
+                                                            }} className="absolute top-2 right-2 text-red-500" >
+                                                            <i className={`fa-heart fa-lg ${favourites.includes(food._id) ? 'fas' : 'far'}`}></i>
+                                                        </button>
+                                                    </div>
                                                     <h3 className="mt-4">{food.name}</h3>
                                                     <div className="mt-2 flex text-lg font-medium">
                                                         <s className="text-red-500">₹{Math.ceil(food.price + (food.price * 0.10))}/-</s>

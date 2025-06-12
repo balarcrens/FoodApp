@@ -21,6 +21,7 @@ import Alert from "./Components/Alert";
 import ForgotPassword from "./Components/ForgotPassword";
 import ResetPassword from "./Components/ResetPassword";
 import ThemeContext from "./Context/Theme/ThemeContext";
+import FoodState from "./Context/Food/FoodState";
 
 function App() {
 	const [eyeicon, seteyeicon] = useState("fa-eye-slash");
@@ -42,25 +43,27 @@ function App() {
 	return (
 		<>
 			<UserState>
-				<div className={`transition-[background] ease-linear duration-300 ${theme === 'dark' ? 'bg-[#060922] brightness-90 text-white min-h-screen' : 'bg-transparent text-black min-h-screen'}`}>
-					<Header />
-					<Routes>
-						<Route exact path='/' element={<Home />}></Route>
-						<Route exact path='/login' element={<Login inputType={inputType} eyeicon={eyeicon} change={change} />}></Route>
-						<Route exact path='/signup' element={<Signup inputType={inputType} eyeicon={eyeicon} change={change} />}></Route>
-						<Route exact path='/foods' element={<Foods />}></Route>
-						<Route exact path='/food/:id' element={<FoodDetail />}></Route>
-						<Route exact path='/aboutus' element={<About />}></Route>
-						<Route exact path='/contactus' element={<ContactUs />}></Route>
-						<Route exact path='/profile' element={<Profile />}></Route>
-						<Route exact path='/order' element={<Order />}></Route>
-						<Route path="/forgot-password" element={<ForgotPassword />} />
-						<Route path="/reset-password" element={<ResetPassword />} />
-						<Route exact path='/setting' element={<Setting inputType={inputType} eyeicon={eyeicon} change={change} />}></Route>
-					</Routes>
-					<Alert />
-					<Footer />
-				</div>
+				<FoodState>
+					<div className={`transition-[background] ease-linear duration-300 ${theme === 'dark' ? 'bg-[#060922] brightness-90 text-white min-h-screen' : 'bg-transparent text-black min-h-screen'}`}>
+						<Header />
+						<Routes>
+							<Route exact path='/' element={<Home />}></Route>
+							<Route exact path='/login' element={<Login inputType={inputType} eyeicon={eyeicon} change={change} />}></Route>
+							<Route exact path='/signup' element={<Signup inputType={inputType} eyeicon={eyeicon} change={change} />}></Route>
+							<Route exact path='/foods' element={<Foods />}></Route>
+							<Route exact path='/food/:id' element={<FoodDetail />}></Route>
+							<Route exact path='/aboutus' element={<About />}></Route>
+							<Route exact path='/contactus' element={<ContactUs />}></Route>
+							<Route exact path='/profile' element={<Profile />}></Route>
+							<Route exact path='/order' element={<Order />}></Route>
+							<Route path="/forgot-password" element={<ForgotPassword />} />
+							<Route path="/reset-password" element={<ResetPassword />} />
+							<Route exact path='/setting' element={<Setting inputType={inputType} eyeicon={eyeicon} change={change} />}></Route>
+						</Routes>
+						<Alert />
+						<Footer />
+					</div>
+				</FoodState>
 			</UserState>
 		</>
 	);
