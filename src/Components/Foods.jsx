@@ -11,7 +11,7 @@ export default function Foods() {
     const itemsPerPage = 8;
     const foodSectionRef = useRef(null);
     const context = useContext(FoodContext);
-    const { favourites, toggleFavourite } = context;
+    const { favourites = [], toggleFavourite } = context;
 
     const goToPage = (pageNumber) => {
         setCurrentPage(pageNumber);
