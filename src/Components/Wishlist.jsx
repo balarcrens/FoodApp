@@ -62,7 +62,7 @@ export default function Wishlist() {
                                     {wishlist.map((food) => (
                                         <div key={food._id} className="relative bg-white hover:scale-[1.02] transition-all shadow-lg rounded-lg overflow-hidden">
                                             <Link to={`/food/${food._id}`} className='flex flex-col btn w-full'>
-                                                <img src={food.img} alt={food.name + " " + food.description} className="aspect-square w-full rounded-lg transition-all object-cover group-hover:opacity-75" />
+                                                <img src={food.img} alt={food.name + " " + food.description} className="aspect-square w-full rounded-lg transition-all hover:p-1 object-cover group-hover:opacity-75" />
                                                 <div className="p-4 relative">
                                                     <button onClick={async (e) => {
                                                         e.preventDefault();

@@ -75,7 +75,7 @@ export default function Order() {
             </div>
             <div className="min-h-screen py-10 px-0 sm:px-6">
                 <div className={`max-w-4xl mx-auto bg-transparent p-2 sm:p-8 rounded-2xl shadow-lg ${localStorage.getItem('theme') === 'dark' && 'shadow-white/10'}`}>
-                    <h1 className="text-3xl font-bold mb-6 text-center"><i className="fa-solid fa-utensils p-2"></i> Your Order</h1>
+                    <h1 className="text-3xl font-bold mb-6 text-center"><i className="fa-solid fa-utensils p-2"></i> Order items </h1>
                     {
                         loading ? <Loader /> :
                             <>
@@ -97,9 +97,6 @@ export default function Order() {
                                                 <h1 className="text-xl font-bold mb-4 text-right text-blue-500">{date === today.toDateString() ? "Today" : date === yesterday.toDateString() ? "Yesterday" : date}</h1>
                                                 {orders.map(order => (
                                                     <div key={order._id} className="rounded-lg text-center sm:text-left shadow-md p-3 sm:p-6 m-0 border border-gray-200 mb-4">
-                                                        {/* <div className='flex flex-wrap justify-end -mt-3 mb-3'>
-                                                            <span className="material-symbols-outlined"> more_horiz </span>
-                                                        </div> */}
                                                         <div className='flex justify-between items-center sm:items-start flex-wrap flex-col sm:flex-row'>
                                                             <img src={`https://foodapp-c382.onrender.com/${order.img}`} alt={order.name} className="w-32 h-32 object-cover rounded-lg shadow-lg mx-auto sm:mx-0" />
                                                             <span className={`px-3 py-1 h-fit w-fit rounded-full font-semibold inline-block  ${order.status === "Processing" ? "bg-yellow-100 text-yellow-700 animate-pulse" : ""} ${order.status === "Out for Delivery" ? "bg-blue-100 text-blue-700 animate-pulse" : ""} ${order.status === "Delivered" ? "bg-green-100 text-green-700" : ""} ${order.status === "Cancelled" ? "bg-red-100 text-red-700" : ""}`}> {order.status} </span>
