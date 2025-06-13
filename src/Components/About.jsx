@@ -69,21 +69,21 @@ export default function About() {
                             Our Values
                         </h2>
                         <div className="flex flex-wrap justify-center gap-8">
-                            <div className={`max-w-xs p-6 rounded-lg shadow-md hover:shadow-lg ${localStorage.getItem('theme') === 'dark' ? 'shadow-white/50' : ''}`}>
+                            <div className={`max-w-xs p-6 rounded-lg shadow-md transition-all hover:shadow-lg ${localStorage.getItem('theme') === 'dark' ? 'shadow-white/40' : ''}`}>
                                 <h3 className="text-xl font-semibold text-[#09AFF4] mb-2"> Quality Ingredients </h3>
                                 <p>
                                     We use only the best ingredients to prepare our meals with care
                                     and passion, ensuring great taste every time.
                                 </p>
                             </div>
-                            <div className={`max-w-xs p-6 rounded-lg shadow-md hover:shadow-lg ${localStorage.getItem('theme') === 'dark' ? 'shadow-white/50' : ''}`}>
+                            <div className={`max-w-xs p-6 rounded-lg shadow-md transition-all hover:shadow-lg ${localStorage.getItem('theme') === 'dark' ? 'shadow-white/40' : ''}`}>
                                 <h3 className="text-xl font-semibold text-[#09AFF4] mb-2"> Fast Delivery </h3>
                                 <p>
                                     We guarantee quick and efficient delivery to ensure your food
                                     arrives hot and fresh.
                                 </p>
                             </div>
-                            <div className={`max-w-xs p-6 rounded-lg shadow-md hover:shadow-lg ${localStorage.getItem('theme') === 'dark' ? 'shadow-white/50' : ''}`}>
+                            <div className={`max-w-xs p-6 rounded-lg shadow-md transition-all hover:shadow-lg ${localStorage.getItem('theme') === 'dark' ? 'shadow-white/40' : ''}`}>
                                 <h3 className="text-xl font-semibold text-[#09AFF4] mb-2"> Customer Satisfaction </h3>
                                 <p>
                                     Our customers' happiness is our top priority. We always aim to
