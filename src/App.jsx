@@ -22,6 +22,7 @@ import ForgotPassword from "./Components/ForgotPassword";
 import ResetPassword from "./Components/ResetPassword";
 import ThemeContext from "./Context/Theme/ThemeContext";
 import FoodState from "./Context/Food/FoodState";
+import Wishlist from "./Components/Wishlist";
 
 function App() {
 	const [eyeicon, seteyeicon] = useState("fa-eye-slash");
@@ -52,6 +53,7 @@ function App() {
 							<Route exact path='/signup' element={<Signup inputType={inputType} eyeicon={eyeicon} change={change} />}></Route>
 							<Route exact path='/foods' element={<Foods />}></Route>
 							<Route exact path='/food/:id' element={<FoodDetail />}></Route>
+							<Route exact path='/wishlist' element={<Wishlist />}></Route>
 							<Route exact path='/aboutus' element={<About />}></Route>
 							<Route exact path='/contactus' element={<ContactUs />}></Route>
 							<Route exact path='/profile' element={<Profile />}></Route>

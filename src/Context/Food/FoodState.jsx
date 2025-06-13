@@ -1,11 +1,18 @@
-import { useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect, useState } from "react";
 import FoodContext from "./FoodContext"
 
 export default function FoodState(props) {
-    const host = 'https://foodapp-backend-o8ha.onrender.com';
-    const [favorites, setFavorites] = useState([]);
+    const host = 'http://localhost:1234';
+    const [favourites, setFavourites] = useState([]);
 
-    const toggleFavorite = async (id) => {
+    const toggleFavourite = async (id) => {
+        const isFav = favourites.includes(id);
+        const updatedFavs = isFav
+            ? favourites.filter(favId => favId !== id)
+            : [...favourites, id];
+        setFavourites(updatedFavs);
+
         try {
             const res = await fetch(`${host}/api/food/favtoggle/${id}`, {
                 method: "POST",
@@ -15,7 +22,7 @@ export default function FoodState(props) {
                 },
             });
             const data = await res.json();
-            setFavorites(data.favorites);
+            setFavourites(data.favourites);
         } catch (error) {
             console.error("Failed to toggle favorite", error.message);
         }
@@ -32,14 +39,35 @@ export default function FoodState(props) {
             });
 
             const data = await res.json();
-            setFavorites(data.favorites);
+            setFavourites(data.map(f => f._id));
+        } catch (error) {
+            console.error("Failed to fetch favorite", error.message);
+        }
+    }
+
+    useEffect(() => {
+        fetchFavourite();
+    }, []);
+
+    const removeFavourite = async (id) => {
+        try {
+            const res = await fetch(`${host}/api/food/removefav/${id}`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                    "auth-token": localStorage.getItem("auth-token"),
+                },
+            });
+
+            const data = await res.json();
+            setFavourites(data);
         } catch (error) {
             console.error("Failed to toggle favorite", error.message);
         }
     }
 
     return (
-        <FoodContext.Provider value={{ favorites, toggleFavorite, fetchFavourite }}>
+        <FoodContext.Provider value={{ favourites, toggleFavourite, fetchFavourite, removeFavourite }}>
             {props.children}
         </FoodContext.Provider>
     )

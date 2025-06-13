@@ -27,7 +27,7 @@ const userSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
-    favourites: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Food' }],
+    favourites: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Food', default: [] }],
     date: {
         type: Date,
         default: Date.now,

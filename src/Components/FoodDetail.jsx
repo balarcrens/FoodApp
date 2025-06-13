@@ -5,6 +5,7 @@ import AOS from "aos";
 import toast from 'react-hot-toast';
 import UserContext from '../Context/users/userContext';
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import FoodContext from '../Context/Food/FoodContext';
 
 export default function FoodDetail() {
     const { id } = useParams();
@@ -18,6 +19,7 @@ export default function FoodDetail() {
     const context = useContext(UserContext);
     const [food, setfood] = useState({});
     const { user } = context;
+    const { favourites, toggleFavourite, fetchFavourite } = useContext(FoodContext);
 
     useEffect(() => {
         window.scrollTo();
@@ -214,9 +216,19 @@ export default function FoodDetail() {
                             <div aria-hidden="true" className="absolute inset-x-0 top-[calc(100%-30rem)] -z-10 transform-gpu overflow-hidden blur-2xl sm:top-[calc(100%-50rem)]" >
                                 <div style={{ clipPath: 'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)', }} className="relative left-[calc(50%+3rem)] aspect-1155/678 w-[36.125rem] -translate-x-1/2 bg-linear-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]" />
                             </div>
+
                             <div className='flex flex-col justify-end lg:justify-center'>
-                                <img src={food.img} alt={food.name + " " + food.description} className="sm:h-130 sm:w-130 h-fit mx-auto rounded-lg object-cover shadow-xl" />
-                                <h2 className="mt-5 text-center text-2xl font-bold">{food.name}</h2>
+                                <div className='relative w-fit mx-auto'>
+                                    <button onClick={async (e) => {
+                                        e.preventDefault();
+                                        await toggleFavourite(food._id);
+                                        await fetchFavourite();
+                                    }} className="absolute top-2 right-3 text-white z-10 cursor-pointer hover:scale-[1.3] transition-all">
+                                        <i className={`${(favourites || []).includes(food._id) ? 'fa-solid text-red-500 hover:text-red-600 fa-beat' : 'fa-regular'} fa-heart fa-lg`}> </i>
+                                    </button>
+                                    <img src={food.img} alt={food.name + " " + food.description} className="sm:h-130 sm:w-130 h-fit mx-auto rounded-lg object-cover shadow-xl" />
+                                </div>
+                                <h2 className="sm:mt-5 mt-2 text-center text-2xl font-bold">{food.name}</h2>
                             </div>
 
                             <div className='flex flex-col justify-start lg:justify-center'>

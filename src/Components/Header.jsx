@@ -110,10 +110,13 @@ export default function Header() {
                                 <MenuItems transition className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black/5 transition shadow-xl focus:outline-hidden data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in divide-y divide-gray-500/20">
                                     <div>
                                         <MenuItem>
-                                            <Link to="/profile" className="block px-4 py-2  text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden hover:text-indigo-600" ><i className="px-1 fa-solid fa-user"></i> Profile </Link>
+                                            <Link to="/profile" className="block px-4 py-2 text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden hover:text-indigo-600" ><i className="px-1 fa-solid fa-user"></i> Profile </Link>
                                         </MenuItem>
                                         <MenuItem>
-                                            <Link to="/order" className="block px-4 py-2  text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden hover:text-indigo-600" ><i className="px-1 fa-solid fa-box"></i> Orders </Link>
+                                            <Link to="/order" className="block px-4 py-2 text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden hover:text-indigo-600" ><i className="px-1 fa-solid fa-box"></i> Orders </Link>
+                                        </MenuItem>
+                                        <MenuItem>
+                                            <Link to="/wishlist" className="block px-4 py-2 text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden hover:text-indigo-600" ><i className="px-1 fa-solid fa-heart"></i> Wishlist </Link>
                                         </MenuItem>
                                         <MenuItem>
                                             <Link to="/setting" className="block px-4 py-2 text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden hover:text-indigo-600" ><i className="px-1 fa-solid fa-gear"></i>  Settings
@@ -164,6 +167,7 @@ export default function Header() {
                                         <div className="space-y-1 py-4">
                                             <Link to="/order" className={`mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold ${location.pathname === "/order" ? 'text-indigo-600' : ''}`} onClick={() => setMobileMenuOpen(false)}> Orders <i className="px-1 fa-solid fa-box"></i> </Link>
                                             <Link to="/profile" className={`mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold ${location.pathname === "/profile" ? 'text-indigo-600' : ''}`} onClick={() => setMobileMenuOpen(false)}> Profile <i className="px-1 fa-solid fa-user"></i> </Link>
+                                            <Link to="/wishlist" className={`mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold ${location.pathname === "/wishlist" ? 'text-indigo-600' : ''}`} onClick={() => setMobileMenuOpen(false)}> Wishlist <i className="px-1 fa-solid fa-heart"></i> </Link>
                                             <Link to="/setting" className={`mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold ${location.pathname === "/setting" ? 'text-indigo-600' : ''}`} onClick={() => setMobileMenuOpen(false)}> Setting <i className="px-1 fa-solid fa-gear"></i> </Link>
                                         </div>
 
