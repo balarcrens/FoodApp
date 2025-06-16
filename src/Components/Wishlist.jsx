@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import FoodContext from '../Context/Food/FoodContext';
 import Loader from './Loader';
 
@@ -9,6 +9,7 @@ export default function Wishlist() {
     const context = useContext(FoodContext);
     const { removeFavourite, favourites, fetchFavourite } = context;
     const [isloading, setisLoading] = useState(true);
+    const navigate = useNavigate();
 
     const fetchfavfood = async () => {
         setisLoading(true);
@@ -54,8 +55,14 @@ export default function Wishlist() {
                     <>
                         {
                             (wishlist && wishlist.length === 0) ? (
-                                <div className="min-h-screen">
-                                    <p className="text-center text-gray-600">No items found</p>
+                                <div className="text-center py-20">
+                                    <i className="fa fa-heart text-6xl text-gray-400 mb-6"></i>
+                                    <h2 className="text-2xl font-semibold">Your wishlist is empty</h2>
+                                    <p className="text-gray-500 mt-2">Save your favorite items here for quick access later.</p>
+                                    <button onClick={() => navigate('/foods')}
+                                        className="mt-6 px-6 py-2 bg-pink-600 text-white rounded hover:bg-pink-700 transition">
+                                        Browse Items
+                                    </button>
                                 </div>
                             ) : (<>
                                 <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">

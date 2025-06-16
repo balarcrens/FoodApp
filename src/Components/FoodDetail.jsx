@@ -138,22 +138,19 @@ export default function FoodDetail() {
                             });
 
                             const orderData = {
-                                email: data.email,
-                                name: food.name,
-                                img: food.img,
+                                email: user?.email,
+                                items: {
+                                    name: food.name,
+                                    img: food.img,
+                                    ingredients: selectedIngredients.length > 0 ? selectedIngredients.ingredients : "N/A",
+                                    size: size || "N/A",
+                                    quantity: quantity,
+                                    price: totalPrice,
+                                },
                                 orderID: response.razorpay_order_id,
                                 paymentID: response.razorpay_payment_id,
-                                quantity,
-                                price: totalPrice,
                                 status: "Processing"
                             };
-
-                            if (food.category === "Pizza") {
-                                orderData.ingredients = selectedIngredients.map(i => i.name).join(', ');
-                            }
-                            if (food.category === "Pizza") {
-                                orderData.size = size.toUpperCase();
-                            }
 
                             await fetch(`https://foodapp-backend-o8ha.onrender.com/api/order`, {
                                 method: "POST",
@@ -303,7 +300,15 @@ export default function FoodDetail() {
                                         <div className='flex flex-wrap'>
                                             <button className="cursor-pointer w-full bg-yellow-600 text-white py-2 md:w-[50%] mx-auto rounded-md    hover:bg-yellow-700" onClick={AddItemCart}> Add to Cart </button>
                                             <button className="cursor-pointer w-full bg-indigo-600 text-white py-2 md:w-[50%] mx-auto rounded-md    hover:bg-indigo-700" onClick={handlePayment}> Order Now </button>
-                                        </div> : <div className='text-lg font-bold text-red-500 text-center'> Out off Stock </div>
+                                        </div> : <div className='text-center py-4'>
+                                            <p className='text-xl font-semibold text-red-600'>Currently Unavailable</p>
+                                            <p className='text-gray-500 mt-1'>This item is out of stock right now. Please check back later or explore other dishes!</p>
+                                            <button
+                                                onClick={() => navigate('/foods')}
+                                                className="mt-4 px-5 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">
+                                                Browse Other Items
+                                            </button>
+                                        </div>
                                 }
                             </div>
                         </div>

@@ -4,16 +4,18 @@ import CartContext from '../Context/Cart/CartContext';
 import Loader from './Loader';
 import toast from 'react-hot-toast';
 import UserContext from '../Context/users/userContext';
+import { useNavigate } from 'react-router-dom';
 
 export default function Cart() {
-    const { cart, RemoveCartItem, FetchCartItem, setCart } = useContext(CartContext);
+    const { cart, RemoveCartItem, FetchCartItem, RemoveAllCart } = useContext(CartContext);
     const [isLoading, setIsLoading] = useState(true);
     const host = "https://foodapp-payment.onrender.com"
     const context = useContext(UserContext);
     const { user } = context;
+    const navigate = useNavigate();
 
     useEffect(() => {
-        setTimeout(() => setIsLoading(false), 500);
+        setTimeout(() => setIsLoading(false), 1000);
         FetchCartItem();
     }, []);
 
@@ -94,8 +96,8 @@ export default function Cart() {
                                 },
                                 body: JSON.stringify(orderData)
                             });
-                            
-                            setCart([])
+
+                            RemoveAllCart()
                         })(),
                         {
                             loading: "Please Wait... Placing your order",
@@ -188,7 +190,16 @@ export default function Cart() {
                         </button>
                     </div>
                 </>
-            ) : <></>}
+            ) : <div className="text-center py-20">
+                <i className="fa-solid fa-shopping-cart text-5xl text-gray-400 mb-6"></i>
+                <h2 className="text-2sxl font-semibold">Your cart is empty</h2>
+                <p className="text-gray-500 mt-2">Looks like you haven’t added anything to your cart yet.</p>
+                <button
+                    onClick={() => navigate('/foods')}
+                    className="mt-6 px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">
+                    Continue Shopping
+                </button>
+            </div>}
         </div>
     );
 }

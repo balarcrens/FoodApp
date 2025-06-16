@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CartContext from "./CartContext"
 
 export default function CartState(props) {
@@ -21,6 +21,10 @@ export default function CartState(props) {
             console.error("Failed Add item to cart", error);
         }
     }
+
+    useEffect(() => {
+        FetchCartItem();
+    }, []);
 
     const AddToCart = async (cartdata) => {
         try {
@@ -59,9 +63,16 @@ export default function CartState(props) {
         }
     }
 
+    const RemoveAllCart = async () => {
+        for (let c of cart) {
+            if (!c.read) {
+                await RemoveCartItem(c._id);
+            }
+        }
+    };
 
     return (
-        <CartContext.Provider value={{ cart, AddToCart, RemoveCartItem, FetchCartItem, setCart }}>
+        <CartContext.Provider value={{ cart, AddToCart, RemoveCartItem, FetchCartItem, RemoveAllCart }}>
             {props.children}
         </CartContext.Provider>
     )

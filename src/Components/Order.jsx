@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Modal from './Modal';
 import toast from 'react-hot-toast';
 import Loader from './Loader';
+import { useNavigate } from 'react-router-dom';
 
 export default function Order() {
     const [orderItems, setOrderItems] = useState([]);
@@ -10,10 +11,13 @@ export default function Order() {
     const [error, setError] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedOrderId, setSelectedOrderId] = useState(null);
+    const navigate = useNavigate();
 
     const host = "https://foodapp-backend-o8ha.onrender.com"
 
-    const totalAmount = orderItems.reduce((i, item) => i + item.price, 0);
+    const totalAmount = orderItems.reduce((sum, order) => {
+        return sum + order.items.reduce((itemSum, item) => itemSum + item.price, 0);
+    }, 0);
 
     useEffect(() => {
         const fetchOrders = async () => {
@@ -61,10 +65,6 @@ export default function Order() {
             console.error(error.message);
         }
     }
-    
-    useEffect(() => {
-        console.log(orderItems)
-    }, [orderItems]);
 
     if (error) return <div className="text-center mt-10 text-red-500">{error}</div>;
 
@@ -86,9 +86,17 @@ export default function Order() {
                             <>
                                 <div className="space-y-4">
                                     {orderItems.length === 0 ? (
-                                        <div>
-                                            <p className="text-center">No orders found.</p>
+                                        <div className="text-center py-20">
+                                            <i className="fa fa-box-open text-6xl text-gray-400 mb-6"></i>
+                                            <h2 className="text-2xl font-semibold">No orders yet</h2>
+                                            <p className="text-gray-500 mt-2">You haven’t placed any orders. Once you do, you’ll see them here.</p>
+                                            <button
+                                                onClick={() => navigate('/foods')}
+                                                className="mt-6 px-6 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition">
+                                                Start Ordering
+                                            </button>
                                         </div>
+
                                     ) : (
                                         Object.entries(
                                             orderItems.reduce((acc, order) => {
@@ -101,39 +109,41 @@ export default function Order() {
                                             <div key={date} className="mb-10">
                                                 <h1 className="text-xl font-bold mb-4 text-right text-blue-500">{date === today.toDateString() ? "Today" : date === yesterday.toDateString() ? "Yesterday" : date}</h1>
                                                 {orders.map(order => (
-                                                    <div key={order._id} className="rounded-lg text-center sm:text-left shadow-md p-3 sm:p-6 m-0 border border-gray-200 mb-4">
-                                                        <div className='flex justify-between items-center sm:items-start flex-wrap flex-col sm:flex-row'>
-                                                            <img src={`https://foodapp-c382.onrender.com/${order.img}`} alt={order.name} className="w-32 h-32 object-cover rounded-lg shadow-lg mx-auto sm:mx-0" />
-                                                            <span className={`px-3 py-1 h-fit w-fit rounded-full font-semibold inline-block  ${order.status === "Processing" ? "bg-yellow-100 text-yellow-700 animate-pulse" : ""} ${order.status === "Out for Delivery" ? "bg-blue-100 text-blue-700 animate-pulse" : ""} ${order.status === "Delivered" ? "bg-green-100 text-green-700" : ""} ${order.status === "Cancelled" ? "bg-red-100 text-red-700" : ""}`}> {order.status} </span>
+                                                    <div key={order._id} className="rounded-lg shadow-md p-4 border border-gray-200 mb-4">
+                                                        <div className="mb-2 flex justify-end flex-wrap gap-2">
+                                                            <span className={`px-3 py-1 h-fit w-fit rounded-full font-semibold text-sm ${order.status === "Processing" ? "bg-yellow-100 text-yellow-700 animate-pulse" :
+                                                                order.status === "Out for Delivery" ? "bg-blue-100 text-blue-700 animate-pulse" :
+                                                                    order.status === "Delivered" ? "bg-green-100 text-green-700" :
+                                                                        order.status === "Cancelled" ? "bg-red-100 text-red-700" : ""
+                                                                }`}>{order.status}</span>
                                                         </div>
-                                                        <>
-                                                            <div className="flex flex-wrap justify-around sm:justify-between items-center mb-4 mt-2">
-                                                                <div>
-                                                                    <h2 className="text-xl font-semibold">{order.name}</h2>
-                                                                    <p className="mb-3">{new Date(order.date).toLocaleString()}</p>
-                                                                </div>
-                                                                <div>
-                                                                    <span className="text-green-600 font-bold text-lg"> ₹{order.price} /- </span>
-                                                                    <div className='mb-3'> <strong>Quantity:</strong> {order.quantity} </div>
-                                                                </div>
-                                                            </div>
 
-                                                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                                                {order.ingredients && <div> <strong> Ingredients: </strong> {order.ingredients} </div>}
-                                                                {order.size && <div> <strong> Size: </strong> {order.size} </div>}
-                                                                <div> <strong> Order ID: </strong> {order.orderID} </div>
-                                                                <div> <strong> Payment ID: </strong> {order.paymentID} </div>
+                                                        {order.items.map((item, idx) => (
+                                                            <div key={idx} className="flex gap-4 mt-3 sm:items-start flex-wrap">
+                                                                <img src={`https://foodapp-c382.onrender.com${item.img}`} alt={item.name} className="w-24 h-24 object-cover my-auto rounded-md shadow-md" />
+                                                                <div className="flex-1">
+                                                                    <h3 className="text-lg font-semibold">{item.name}</h3>
+                                                                    <p><span className='font-semibold'>Quantity:</span> {item.quantity}</p>
+                                                                    {item.ingredients && <p><span className='font-semibold'>Ingredients:</span> {Array.isArray(item.ingredients) ? item.ingredients.join(', ') : item.ingredients}</p>}
+                                                                    {item.size && <p><span className='font-semibold'>Size:</span> {item.size}</p>}
+                                                                    <p className="text-green-600 font-semibold">₹{item.price} /-</p>
+                                                                </div>
                                                             </div>
-                                                        </>
+                                                        ))}
+
+                                                        <div className="mt-4 text-sm text-gray-500">
+                                                            <p><strong>Date:</strong> {new Date(order.date).toLocaleString()}</p>
+                                                        </div>
+
                                                         {order.status === 'Processing' && (
-                                                            <div className='flex flex-wrap justify-end mt-4'>
+                                                            <div className='flex justify-end mt-4'>
                                                                 {!order.cancelRequested ? (
-                                                                    <button className='bg-red-500 hover:bg-red-700 cursor-pointer text-white px-3 py-1 rounded disabled:opacity-50' onClick={() => {
+                                                                    <button className='bg-red-500 hover:bg-red-700 text-white px-4 py-1 rounded' onClick={() => {
                                                                         setSelectedOrderId(order._id);
                                                                         setIsModalOpen(true);
                                                                     }}> Cancel </button>
                                                                 ) : (
-                                                                    order.cancelRequested && (<span className="text-yellow-500 font-medium">Wait for Cancel Approval</span>)
+                                                                    <span className="text-yellow-500 font-medium">Cancellation Requested</span>
                                                                 )}
                                                             </div>
                                                         )}
