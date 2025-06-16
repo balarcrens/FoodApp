@@ -61,12 +61,17 @@ export default function Order() {
             console.error(error.message);
         }
     }
+    
+    useEffect(() => {
+        console.log(orderItems)
+    }, [orderItems]);
 
     if (error) return <div className="text-center mt-10 text-red-500">{error}</div>;
 
     const today = new Date();
     const yesterday = new Date(today);
     yesterday.setDate(today.getDate() - 1);
+
 
     return (
         <>
