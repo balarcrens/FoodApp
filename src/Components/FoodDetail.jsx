@@ -1,4 +1,3 @@
-/* eslint-disable no-const-assign */
 /* eslint-disable no-unused-vars */
 'use client'
 import { useContext, useEffect, useState } from 'react'
@@ -196,23 +195,26 @@ export default function FoodDetail() {
     };
 
     const AddItemCart = async () => {
-        const cartData = {
-            email: data.email,
-            name: food.name,
-            img: food.img,
-            quantity,
-            price: totalPrice,
-        };
+        let ingredients = "";
+        let size = food?.size;
 
         if (food.category === "Pizza") {
             ingredients = selectedIngredients.map(i => i.name).join(', ');
-        }
-        if (food.category === "Pizza") {
             size = size.toUpperCase();
         }
 
-        await AddToCart(cartData)
-    }
+        const cartData = {
+            email: data?.email,
+            name: food?.name,
+            img: food?.img,
+            quantity,
+            price: totalPrice,
+            ingredients,
+            size
+        };
+
+        AddToCart(cartData);
+    };
 
     return (
         <>
