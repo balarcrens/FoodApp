@@ -41,9 +41,9 @@ export default function CartState(props) {
         }
     }
     
-    const RemoveCartItem = async () => {
+    const RemoveCartItem = async (id) => {
         try {
-            const res = await fetch(`${host}/removecartitem`, {
+            const res = await fetch(`${host}/removecartitem/${id}`, {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",

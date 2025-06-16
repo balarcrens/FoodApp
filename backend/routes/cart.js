@@ -33,7 +33,7 @@ router.get('/fetchcartitem', fetchuser, async (req, res) => {
     }
 });
 
-router.delete('/deletecartitem/:id', fetchuser, async (req, res) => {
+router.delete('/removecartitem/:id', fetchuser, async (req, res) => {
     try {
         const deleted = await Cart.findByIdAndDelete(req.params.id);
         if (!deleted) return res.status(404).send("Item not found in Cart");

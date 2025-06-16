@@ -7,6 +7,7 @@ import UserContext from '../Context/users/userContext';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import FoodContext from '../Context/Food/FoodContext';
 import Loader from './Loader';
+import CartContext from '../Context/Cart/CartContext';
 
 export default function FoodDetail() {
     const { id } = useParams();
@@ -21,6 +22,7 @@ export default function FoodDetail() {
     const [food, setfood] = useState({});
     const { user } = context;
     const { favourites, toggleFavourite, fetchFavourite } = useContext(FoodContext);
+    const { AddToCart } = useContext(CartContext);
 
     useEffect(() => {
         window.scrollTo();
@@ -275,9 +277,13 @@ export default function FoodDetail() {
                                 <p className="text-lg font-bold text-indigo-600 my-2">Total: ₹{totalPrice}</p>
 
                                 {
-                                    food.isAvailable ? <button className="cursor-pointer w-full bg-indigo-600 text-white py-2 md:w-[50%] mx-auto rounded-md hover:bg-indigo-700" onClick={handlePayment}>
-                                        Order Now
-                                    </button> : <div className='text-lg font-bold text-red-500 text-center'> Out off Stock </div>
+                                    food.isAvailable ? <div className='flex flex-wrap'>
+                                        <button className="cursor-pointer w-full bg-yellow-600 text-white py-2 md:w-[50%] mx-auto rounded-md hover:bg-yellow-700" onClick={AddToCart({ email: data?.email, name: food?.name, img: food?.img, ingredients: selectedIngredients, size: food?.size, quantity, price: totalPrice })}>
+                                            Add to Cart
+                                        </button>
+                                        <button className="cursor-pointer w-full bg-indigo-600 text-white py-2 md:w-[50%] mx-auto rounded-md hover:bg-indigo-700" onClick={handlePayment}>
+                                            Order Now
+                                        </button> </div> : <div className='text-lg font-bold text-red-500 text-center'> Out off Stock </div>
                                 }
                             </div>
                         </div>

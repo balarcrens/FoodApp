@@ -116,6 +116,9 @@ export default function Header() {
                                             <Link to="/order" className="block px-4 py-2 text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden hover:text-indigo-600" ><i className="px-1 fa-solid fa-box"></i> Orders </Link>
                                         </MenuItem>
                                         <MenuItem>
+                                            <Link to="/cart" className="block px-3.5 py-2 text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden hover:text-indigo-600" ><i className="px-1 fa-solid fa-cart-shopping"></i> Cart </Link>
+                                        </MenuItem>
+                                        <MenuItem>
                                             <Link to="/wishlist" className="block px-4 py-2 text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden hover:text-indigo-600" ><i className="px-1 fa-solid fa-heart"></i> Wishlist </Link>
                                         </MenuItem>
                                         <MenuItem>
@@ -167,6 +170,7 @@ export default function Header() {
                                         <div className="space-y-1 py-4">
                                             <Link to="/order" className={`mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold ${location.pathname === "/order" ? 'text-indigo-600' : ''}`} onClick={() => setMobileMenuOpen(false)}> Orders <i className="px-1 fa-solid fa-box"></i> </Link>
                                             <Link to="/profile" className={`mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold ${location.pathname === "/profile" ? 'text-indigo-600' : ''}`} onClick={() => setMobileMenuOpen(false)}> Profile <i className="px-1 fa-solid fa-user"></i> </Link>
+                                            <Link to="/cart" className={`mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold ${location.pathname === "/cart" ? 'text-indigo-600' : ''}`} onClick={() => setMobileMenuOpen(false)}> Cart <i className="px-1 fa-solid fa-cart-shopping"></i> </Link>
                                             <Link to="/wishlist" className={`mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold ${location.pathname === "/wishlist" ? 'text-indigo-600' : ''}`} onClick={() => setMobileMenuOpen(false)}> Wishlist <i className="px-1 fa-solid fa-heart"></i> </Link>
                                             <Link to="/setting" className={`mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold ${location.pathname === "/setting" ? 'text-indigo-600' : ''}`} onClick={() => setMobileMenuOpen(false)}> Setting <i className="px-1 fa-solid fa-gear"></i> </Link>
                                         </div>

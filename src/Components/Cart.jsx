@@ -6,7 +6,7 @@ export default function Cart() {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        setTimeout(() => setIsLoading(false), 500); // simulate loading
+        setTimeout(() => setIsLoading(false), 500);
     }, []);
 
     const totalAmount = state?.reduce((acc, item) => acc + (item.price * item.quantity), 0) || 0;
@@ -24,8 +24,8 @@ export default function Cart() {
     }
 
     return (
-        <div className="min-h-screen bg-gray-50 p-4 md:p-10">
-            <h1 className="text-3xl font-bold mb-6">🛒 My Cart</h1>
+        <div className="mx-auto max-w-sm sm:max-w-3xl lg:max-w-4xl xl:max-w-7xl py-16 px-4 sm:px-8 min-h-screen">
+            <h1 className="text-2xl font-bold mb-4 max-h-fit">My Cart 🛒</h1>
 
             {state && state.length > 0 ? (
                 <>
@@ -53,7 +53,7 @@ export default function Cart() {
                 </>
             ) : (
                 <div className="text-center text-gray-600 mt-20">
-                    <h2 className="text-xl">Your cart is empty 😞</h2>
+                    <h2 className="text-xl">Your cart is empty</h2>
                 </div>
             )}
         </div>
