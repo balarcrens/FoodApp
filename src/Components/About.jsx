@@ -99,17 +99,17 @@ export default function About() {
                         <h2 className="text-3xl font-semibold mb-6"> Meet the Team </h2>
                         <div className="flex flex-wrap justify-center gap-8">
                             <div className={`max-w-xs p-6 rounded-lg shadow-md hover:shadow-lg ${localStorage.getItem('theme') === 'dark' ? 'shadow-white/50' : ''}`}>
-                                <img src="https://avatar.iran.liara.run/public/boy" alt="Team Member" className="w-32 h-32 rounded-full mx-auto mb-4" />
+                                <img src="https://avatar.iran.liara.run/public/boy" alt="CEO" className="w-32 h-32 rounded-full mx-auto mb-4" />
                                 <h3 className="text-xl font-semibold  mb-2">...</h3>
                                 <p>Founder & CEO</p>
                             </div>
                             <div className={`max-w-xs p-6 rounded-lg shadow-md hover:shadow-lg ${localStorage.getItem('theme') === 'dark' ? 'shadow-white/50' : ''}`}>
-                                <img src="https://avatar.iran.liara.run/public" alt="Team Member" className="w-32 h-32 rounded-full mx-auto mb-4" />
+                                <img src="https://avatar.iran.liara.run/public" alt="Head Chef" className="w-32 h-32 rounded-full mx-auto mb-4" />
                                 <h3 className="text-xl font-semibold  mb-2">...</h3>
                                 <p>Head Chef</p>
                             </div>
                             <div className={`max-w-xs p-6 rounded-lg shadow-md hover:shadow-lg ${localStorage.getItem('theme') === 'dark' ? 'shadow-white/50' : ''}`}>
-                                <img src="https://avatar.iran.liara.run/public/girl" alt="Team Member" className="w-32 h-32 rounded-full mx-auto mb-4" />
+                                <img src="https://avatar.iran.liara.run/public/girl" alt="Customer Service" className="w-32 h-32 rounded-full mx-auto mb-4" />
                                 <h3 className="text-xl font-semibold  mb-2">...</h3>
                                 <p>Customer Service</p>
                             </div>
