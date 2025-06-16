@@ -15,7 +15,7 @@ router.post('/addcartitem', fetchuser, [
         const errors = validationResult(req);
         if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
 
-        const cart = new Cart({ ...req.body, user: req.user.id });
+        const cart = new Cart({ ...req.body.cartData, user: req.user.id });
         const savedCart = await cart.save();
         res.json(savedCart);
     } catch (error) {

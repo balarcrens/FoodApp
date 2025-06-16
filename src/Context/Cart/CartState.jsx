@@ -3,7 +3,7 @@ import CartContext from "./CartContext"
 
 export default function CartState(props) {
     const host = 'https://foodapp-backend-o8ha.onrender.com';
-    const [state, setState] = useState();
+    const [cart, setCart] = useState();
 
     const FetchCartItem = async () => {
         try {
@@ -16,7 +16,7 @@ export default function CartState(props) {
             });
 
             const data = await res.json();
-            setState(data);
+            setCart(data);
         } catch (error) {
             console.error("Failed Add item to cart", error);
         }
@@ -34,7 +34,7 @@ export default function CartState(props) {
             });
 
             const data = await res.json();
-            setState(data);
+            setCart(data);
             FetchCartItem();
         } catch (error) {
             console.error("Failed Add item to cart", error);
@@ -52,7 +52,7 @@ export default function CartState(props) {
             });
 
             const data = await res.json();
-            setState(data);
+            setCart(data);
             FetchCartItem();
         } catch (error) {
             console.error("Failed Add item to cart", error);
@@ -61,7 +61,7 @@ export default function CartState(props) {
 
 
     return (
-        <CartContext.Provider value={{ state, AddToCart, RemoveCartItem }}>
+        <CartContext.Provider value={{ cart, AddToCart, RemoveCartItem, FetchCartItem }}>
             {props.children}
         </CartContext.Provider>
     )
