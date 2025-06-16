@@ -20,7 +20,7 @@ router.post('/addcartitem', fetchuser, [
         res.json(savedCart);
     } catch (error) {
         console.error(error.message);
-        res.status(500).json({ error: "Internal Server Error" });
+        res.status(500).json({ error: error.message });
     }
 })
 
@@ -31,7 +31,7 @@ router.get('/fetchcartitem', fetchuser, async (req, res) => {
         res.json(carts);
     } catch (error) {
         console.error(error.message);
-        res.status(500).json({ error: "Internal Server Error" });
+        res.status(500).json({ error: error.message });
     }
 });
 
@@ -42,7 +42,7 @@ router.delete('/removecartitem/:id', fetchuser, async (req, res) => {
         res.json({ success: "item removed from cart", deleted });
     } catch (error) {
         console.error(error.message);
-        res.status(500).json({ error: "Internal Server Error" });
+        res.status(500).json({ error: error.message });
     }
 });
 
