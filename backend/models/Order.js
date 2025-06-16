@@ -9,16 +9,10 @@ const orderSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    name: {
-        type: String,
+    items: {
+        type: Array,
         required: true
     },
-    img: {
-        type: String,
-        required: true
-    },
-    ingredients: { type: String },
-    size: { type: String },
     orderID: {
         type: String,
         required: true
@@ -26,15 +20,6 @@ const orderSchema = new mongoose.Schema({
     paymentID: {
         type: String,
         required: true
-    },
-    quantity: {
-        type: Number,
-        required: true
-    },
-    price: {
-        type: Number,
-        required: true,
-        min: 0
     },
     status: {
         type: String,

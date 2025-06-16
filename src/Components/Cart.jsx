@@ -80,15 +80,13 @@ export default function Cart() {
                                     size: item.size || "N/A",
                                     quantity: item.quantity,
                                     price: item.price * item.quantity,
-                                    category: item.category || "Other"
                                 })),
                                 orderID: response.razorpay_order_id,
                                 paymentID: response.razorpay_payment_id,
-                                status: "Processing",
-                                totalPrice: totalAmount
+                                status: "Processing"
                             };
 
-                            await fetch(`https://foodapp-backend-o8ha.onrender.com/api/cartorder`, {
+                            await fetch(`https://foodapp-backend-o8ha.onrender.com/api/order`, {
                                 method: "POST",
                                 headers: {
                                     "Content-Type": "application/json",
