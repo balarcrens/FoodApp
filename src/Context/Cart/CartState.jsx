@@ -7,7 +7,7 @@ export default function CartState(props) {
 
     const FetchCartItem = async () => {
         try {
-            const res = await fetch(`${host}/fetchcartitem`, {
+            const res = await fetch(`${host}/api/fetchcartitem`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -24,13 +24,13 @@ export default function CartState(props) {
 
     const AddToCart = async (cartdata) => {
         try {
-            const res = await fetch(`${host}/addcartitem`, {
+            const res = await fetch(`${host}/api/addcartitem`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                     "auth-token": localStorage.getItem('auth-token')
                 },
-                body: JSON.stringify({ cartdata })
+                body: JSON.stringify(cartdata)
             });
 
             const data = await res.json();
@@ -40,10 +40,10 @@ export default function CartState(props) {
             console.error("Failed Add item to cart", error);
         }
     }
-    
+
     const RemoveCartItem = async (id) => {
         try {
-            const res = await fetch(`${host}/removecartitem/${id}`, {
+            const res = await fetch(`${host}/api/removecartitem/${id}`, {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",
