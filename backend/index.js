@@ -18,6 +18,8 @@ app.use('/api', require('./routes/contact'));
 
 app.use('/api', require('./routes/order'));
 
+app.use('/api', require('./routes/cart'));
+
 app.get('/', (req, res) => {
     res.send('API is running 🚀');
 });
