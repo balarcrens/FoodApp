@@ -36,6 +36,26 @@ router.get('/fetchallorder', fetchuser, async (req, res) => {
     }
 });
 
+router.post('/cartorder', fetchuser, async (req, res) => {
+    try {
+        const newOrder = new Order({
+            user: req.user.id,
+            email: req.body.email,
+            items: req.body.items,
+            orderID: req.body.orderID,
+            paymentID: req.body.paymentID,
+            status: req.body.status,
+            totalPrice: req.body.totalPrice,
+            date: new Date()
+        });
+        await newOrder.save();
+        res.json({ status: "ok", message: "Order stored" });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ status: "error", message: "Internal Server Error" });
+    }
+});
+
 router.post('/request-cancel/:id', fetchuser, async (req, res) => {
     try {
         const order = await Order.findOne({ _id: req.params.id, user: req.user.id });

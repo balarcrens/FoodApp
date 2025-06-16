@@ -18,8 +18,8 @@ export default function FoodDetail() {
     const [isloading, setisLoading] = useState(true);
     const [selectedIngredients, setSelectedIngredients] = useState([]);
     const [data, setData] = useState(null);
-    const context = useContext(UserContext);
     const [food, setfood] = useState({});
+    const context = useContext(UserContext);
     const { user } = context;
     const { favourites, toggleFavourite, fetchFavourite } = useContext(FoodContext);
     const { AddToCart } = useContext(CartContext);
@@ -195,7 +195,7 @@ export default function FoodDetail() {
     };
 
     const AddItemCart = async () => {
-        let ingredients = "";
+        let ingredients;
         let size = food?.size;
 
         if (food.category === "Pizza") {
