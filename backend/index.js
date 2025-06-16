@@ -8,6 +8,11 @@ mongodb();
 app.use(cors());
 app.use(express.json());
 
+app.use(cors({
+    origin: ['http://localhost:3000', 'https://foodapp-c382.onrender.com'],
+    credentials: true
+}));
+
 app.use('/api/auth', require('./routes/auth'));
 
 app.use('/api/admin', require('./routes/admin'));
