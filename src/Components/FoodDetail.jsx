@@ -193,11 +193,11 @@ export default function FoodDetail() {
 
     const AddItemCart = async () => {
         let ingredients;
-        let size = food?.size;
+        let foodsize = size;
 
         if (food.category === "Pizza") {
             ingredients = selectedIngredients.map(i => i.name).join(', ');
-            size = size.toUpperCase();
+            foodsize = size ? size.toUpperCase() : ""
         }
 
         const cartData = {
@@ -207,10 +207,19 @@ export default function FoodDetail() {
             quantity,
             price: totalPrice,
             ingredients,
-            size
+            foodsize
         };
 
-        AddToCart(cartData);
+        await toast.promise(
+            (async () => {
+                await AddToCart(cartData);
+            })(),
+            {
+                loading: "Adding Item to Cart",
+                success: "Item Successfully Added to Cart!",
+                error: "Failed to add item to cart. Please try again.",
+            }
+        )
     };
 
     return (
@@ -297,9 +306,9 @@ export default function FoodDetail() {
 
                                 {
                                     food.isAvailable ?
-                                        <div className='flex flex-wrap'>
-                                            <button className="cursor-pointer w-full bg-yellow-600 text-white py-2 md:w-[50%] mx-auto rounded-md    hover:bg-yellow-700" onClick={AddItemCart}> Add to Cart </button>
-                                            <button className="cursor-pointer w-full bg-indigo-600 text-white py-2 md:w-[50%] mx-auto rounded-md    hover:bg-indigo-700" onClick={handlePayment}> Order Now </button>
+                                        <div className='flex flex-wrap sm:justify-between gap-5'>
+                                            <button className="cursor-pointer w-full bg-yellow-400 text-white py-2 md:w-[40%] mx-auto rounded-md    hover:bg-yellow-500" onClick={AddItemCart}> Add to Cart <i className="fa-solid fa-shopping-cart fa-xs"></i> </button>
+                                            <button className="cursor-pointer w-full bg-indigo-600 text-white py-2 md:w-[40%] mx-auto rounded-md    hover:bg-indigo-700" onClick={handlePayment}> Order Now </button>
                                         </div> : <div className='text-center py-4'>
                                             <p className='text-xl font-semibold text-red-600'>Currently Unavailable</p>
                                             <p className='text-gray-500 mt-1'>This item is out of stock right now. Please check back later or explore other dishes!</p>

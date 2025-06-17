@@ -56,7 +56,7 @@ export default function Wishlist() {
                         {
                             (wishlist && wishlist.length === 0) ? (
                                 <div className="text-center py-20">
-                                    <i className="fa fa-heart text-6xl text-gray-400 mb-6"></i>
+                                    <i className="fa fa-heart text-5xl text-gray-400 mb-6"></i>
                                     <h2 className="text-2xl font-semibold">Your wishlist is empty</h2>
                                     <p className="text-gray-500 mt-2">Save your favorite items here for quick access later.</p>
                                     <button onClick={() => navigate('/foods')}

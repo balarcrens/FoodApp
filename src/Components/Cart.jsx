@@ -139,14 +139,14 @@ export default function Cart() {
                                     <th className="p-2">Ingredients</th>
                                     <th className="p-2">Size</th>
                                     <th className="p-2">Quantity</th>
-                                    <th className="p-2">Price</th>
+                                    <th className="p-2">Sub Total</th>
                                 </tr>
                             </thead>
                             <tbody className={`${localStorage.getItem('theme') === 'dark' ? 'bg-gray-600' : 'bg-blue-50'}`}>
                                 {cart.map((item, idx) => (
                                     <tr key={idx} className={`border-t ${localStorage.getItem('theme') === 'dark' ? 'hover:bg-gray-700' : 'hover:bg-blue-100'}`}>
                                         <td className="p-2">
-                                            <button onClick={() => RemoveCartItem(item._id)} className="text-red-500 mx-2 hover:text-red-400 transition-all">
+                                            <button onClick={() => RemoveCartItem(item._id)} className="text-red-500 mx-2 hover:text-red-400 transition-all cursor-pointer">
                                                 <i className="fa-solid fa-trash"></i>
                                             </button>
                                         </td>
@@ -163,30 +163,31 @@ export default function Cart() {
                             </tbody>
                         </table>
 
-                        {/* Mobile Cards */}
                         <div className="sm:hidden space-y-4">
                             {cart.map((item, idx) => (
                                 <div key={idx} className={`shadow-xl rounded-lg shadow p-3 ${localStorage.getItem('theme') === 'dark' ? 'bg-gray-700 text-white' : 'bg-white text-gray-800'}`}>
                                     <div className="flex flex-wrap-reverse justify-between items-center mb-2">
                                         <h2 className="text-lg font-semibold">{item.name}</h2>
-                                        <button onClick={() => RemoveCartItem(item._id)} className="text-red-500 ml-auto hover:text-red-400">
+                                        <button onClick={() => RemoveCartItem(item._id)} className="text-red-500 cursor-pointer ml-auto hover:text-red-400">
                                             <i className="fa-solid fa-close"></i>
                                         </button>
                                     </div>
                                     <img src={item.img} alt={item.name} className="w-20 h-20 object-cover rounded mb-2" />
-                                    <p><strong>Ingredients:</strong> {item.ingredients.length > 0 ? item.ingredients : 'N/A'}</p>
-                                    <p><strong>Size:</strong> {item.size || 'N/A'}</p>
+                                    {item.ingredients.length > 0 ? <p><strong>Ingredients:</strong> {item.ingredients || 'N/A'}</p> : <></>}
+                                    {item.size ? <p><strong>Size:</strong> {item.size || 'N/A'}</p> : <></>}
                                     <p><strong>Quantity:</strong> {item.quantity}</p>
-                                    <p><strong>Price:</strong> ₹{item.price * item.quantity}</p>
+                                    <p><strong>Sub Total:</strong> ₹{item.price * item.quantity}</p>
                                 </div>
                             ))}
                         </div>
                     </div>
 
-                    <div className="mt-8 flex justify-between items-center">
-                        <h2 className="sm:text-2xl text-xl font-bold">Total: ₹{totalAmount}</h2>
-                        <button onClick={handlePayment} className="bg-green-500 hover:bg-green-600 text-white px-3 py-2 rounded transition-all">
-                            Pay Now
+                    <div className="mt-8 max-w-xs ml-auto flex flex-col divide-y divide-gray-300 justify-center items-start sm:p-2 p-1">
+                        <h5 className="sm:text-sm w-full py-1 text-sm">Sub Total: ₹{totalAmount}</h5>
+                        <h5 className="sm:text-sm w-full py-1 text-sm">Shipping Fee: ₹0</h5>
+                        <h4 className="sm:text-xl w-full py-1 text-lg font-bold">Total: ₹{totalAmount}</h4>
+                        <button onClick={handlePayment} className="bg-green-500 hover:bg-green-600 flex justify-center items-center w-full gap-2 text-white mt-2 px-3 py-2 transition-all">
+                            <span className="material-symbols-outlined"> payments </span> Proceed to Checkout
                         </button>
                     </div>
                 </>

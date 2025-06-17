@@ -87,11 +87,10 @@ export default function Order() {
                                 <div className="space-y-4">
                                     {orderItems.length === 0 ? (
                                         <div className="text-center py-20">
-                                            <i className="fa fa-box-open text-6xl text-gray-400 mb-6"></i>
+                                            <i className="fa fa-box-open text-5xl text-gray-400 mb-6"></i>
                                             <h2 className="text-2xl font-semibold">No orders yet</h2>
                                             <p className="text-gray-500 mt-2">You haven’t placed any orders. Once you do, you’ll see them here.</p>
-                                            <button
-                                                onClick={() => navigate('/foods')}
+                                            <button onClick={() => navigate('/foods')}
                                                 className="mt-6 px-6 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition">
                                                 Start Ordering
                                             </button>
@@ -123,9 +122,12 @@ export default function Order() {
                                                                 <img src={`https://foodapp-c382.onrender.com${item.img}`} alt={item.name} className="w-24 h-24 object-cover my-auto rounded-md shadow-md" />
                                                                 <div className="flex-1">
                                                                     <h3 className="text-lg font-semibold">{item.name}</h3>
+                                                                    
                                                                     <p><span className='font-semibold'>Quantity:</span> {item.quantity}</p>
-                                                                    {item.ingredients && <p><span className='font-semibold'>Ingredients:</span> {Array.isArray(item.ingredients) ? item.ingredients.join(', ') : item.ingredients}</p>}
-                                                                    {item.size && <p><span className='font-semibold'>Size:</span> {item.size}</p>}
+
+                                                                    {item.ingredients !== "N/A" ? <p><strong className='font-semibold'>Ingredients:</strong> {item.ingredients || 'N/A'}</p> : <></>}
+
+                                                                    {item.size !== "N/A" && <p><span className='font-semibold'>Size:</span> {item.size}</p>}
                                                                     <p className="text-green-600 font-semibold">₹{item.price} /-</p>
                                                                 </div>
                                                             </div>
