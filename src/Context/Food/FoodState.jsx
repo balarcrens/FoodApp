@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import FoodContext from "./FoodContext"
 
 export default function FoodState(props) {
-    const host = 'http://localhost:1234';
+    const host = 'https://foodapp-backend-o8ha.onrender.com';
     const [favourites, setFavourites] = useState([]);
 
     const toggleFavourite = async (id) => {

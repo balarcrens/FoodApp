@@ -14,7 +14,7 @@ export default function Wishlist() {
     const fetchfavfood = async () => {
         setisLoading(true);
         try {
-            const res = await fetch(`http://localhost:1234/api/food/favfoods`, {
+            const res = await fetch(`https://foodapp-backend-o8ha.onrender.com/api/food/favfoods`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

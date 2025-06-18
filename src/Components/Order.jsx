@@ -46,7 +46,7 @@ export default function Order() {
 
     const handleCancel = async (id) => {
         try {
-            const res = await fetch(`http://localhost:1234/api/request-cancel/${id}`, {
+            const res = await fetch(`${host}/api/request-cancel/${id}`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

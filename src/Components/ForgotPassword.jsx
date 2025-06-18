@@ -15,7 +15,7 @@ export default function ForgotPassword() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await fetch('http://localhost:1234/api/auth/forgot-password', {
+            const res = await fetch('https://foodapp-backend-o8ha.onrender.com/api/auth/forgot-password', {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email })
@@ -36,7 +36,7 @@ export default function ForgotPassword() {
     const handleVerifyOTP = async (e) => {
         e.preventDefault();
         try {
-            const res = await fetch('http://localhost:1234/api/auth/verify-otp', {
+            const res = await fetch('https://foodapp-backend-o8ha.onrender.com/api/auth/verify-otp', {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email, otp })
