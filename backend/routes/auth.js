@@ -227,7 +227,7 @@ router.post('/verify-google-token', async (req, res) => {
     try {
         const ticket = await client.verifyIdToken({
             idToken: token,
-            audience: "226449432488-s5r459b5ovor76lfupd8npfo07t91lgi.apps.googleusercontent.com"
+            audience: "1047644053034-4q125ihqoo4f86otgq3b66bev8avcvkf.apps.googleusercontent.com"
         });
 
         const payload = ticket.getPayload();
