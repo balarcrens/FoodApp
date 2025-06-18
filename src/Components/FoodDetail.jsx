@@ -25,7 +25,7 @@ export default function FoodDetail() {
     const { AddToCart } = useContext(CartContext);
 
     useEffect(() => {
-        window.scrollTo();
+        window.scrollTo(0, 0);
     }, []);
 
     useEffect(() => {
